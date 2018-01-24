@@ -1,8 +1,31 @@
 # *_*coding:utf-8 *_*
 # author: hoicai
 
-def get_user_url(user_code):
-    user_url = 'http://bangumi.tv/user/{}'.format(user_code)
+# 收藏的角色
+CHANNEL_MONO_CHARACTER = '/mono/character'
+# 收藏的人物
+CHANNEL_MONO_PERSN = '/mono/person'
+# 人物
+CHANNEL_MONO = '/mono'
+# 日志
+CHANNEL_BLOG = '/blog'
+# 目录
+CHANNEL_INDEX = '/index'
+# 时间胶囊
+CHANNEL_TIMELINE = '/timeline'
+# 小组
+CHANNEL_GROUPS = '/groups'
+# 好友
+CHANNEL_FRIENDS = '/friends'
+# 维基
+CHANNEL_WIKI = '/wiki'
+# 天窗
+CHANNEL_DOUJIN = '/doujin'
+
+
+
+def get_user_url(user_code, channel=""):
+    user_url = 'http://bangumi.tv/user/{}{}'.format(user_code,channel)
     return user_url
 
 
