@@ -1,61 +1,53 @@
 # *_*coding:utf-8 *_*
 # author: hoicai
-import time
 from bs4 import BeautifulSoup
 import requests
+from bangumi.constants.url_constants import get_user_url, get_user_headers
 
-from bangumi.constants import url_constants
+user_url = get_user_url('gmxcmm')
+headers = get_user_headers()
 
-user_code = 'zisudaki'
+response = requests.get(user_url, headers = headers)
+response.encoding = 'utf-8'
+soup = BeautifulSoup(response.text, 'lxml')
+print(soup)
 
+user_name = soup.select('#headerProfile > div > div.headerContainer > h1 > div.inner > a')[0].get_text()
+user_code = soup.select('#headerProfile > div > div.headerContainer > h1 > div.inner > small')[0].get_text()[1:]
+user_join_time = soup.select('span.tip')[0].get_text().split(' ')[0]
 
-def find_friends(USER_CODE):
-    user_url = url_constants.get_user_url(USER_CODE, url_constants.CHANNEL_FRIENDS)
-    user_hearders = url_constants.get_user_headers(USER_CODE)
+user_intro = soup.select('div.bio')[0].get_text()
 
-    time.sleep(0.2)
-    response = requests.get(user_url, headers=user_hearders)
-    response.encoding = 'utf-8'
-    soup = BeautifulSoup(response.text, 'lxml')
-    # print(soup)
-    owner_name = soup.select('#headerProfile > div > div.headerContainer > h1 > div.inner > a')
+user_anime = soup.select('#anime > div.horizontalOptions.clearit > ul > li')
+for user_anime_list in user_anime:
+    user_name_message = user_anime_list.get_text()
 
-    user_names = soup.select('#memberUserList > li > div > strong > a')
-    user_codes = soup.select('#memberUserList > li > div > strong > a')
+    user_anime_do = user_name_message.split("部")[0] if '在看' in user_name_message else None
 
-    data = [];
-    for user_code, user_name in zip(user_codes, user_names):
-        info = {
-            'user_code': user_code.get('href')[6:],
-            'user_name': user_name.get_text().split(" ")[1]
-        }
-        data.append(info)
-    return data
+    user_anime_collect = user_name_message.split("部")[0] if '看过' in user_name_message else None
 
-if __name__ == '__main__':
+    user_anime_wish = user_name_message.split("部")[0] if '想看' in user_name_message else None
 
-    user_list = []
-    def find(USER_CODE):
-        friends = find_friends(USER_CODE)
-        # user_list.extend(friends)
-        owner = [user['user_name'] for user in user_list if USER_CODE == user['user_code']]
-        print('用户:{},好友数:{},好友列表:{}'.format(
-            owner[0],
-            len(friends),
-            [friend['user_name'] for friend in friends if friend ]))
-        return [friend['user_code'] for friend in friends if friend ]
+    user_anime_on_hold = user_name_message.split("部")[0] if '搁置' in user_name_message else None
 
-    def infinity(USER_CODE):
-        user_codes = [user['user_code'] for user in user_list if user ]
-        if USER_CODE in user_codes:
-            return False
-        else:
-            user_list.append(USER_CODE)
-        user_codes = find(USER_CODE)
-        for user_code in user_codes:
-            flag = infinity(user_code)
-            if flag:
-                continue
+    user_anime_dropped = user_name_message.split("部")[0] if '抛弃' in user_name_message else None
 
 
-    infinity('zisudaki')
+user_game = soup.select('#game > div.horizontalOptions.clearit > ul > li')
+for user_game_list in user_game:
+    user_name_message = user_game_list.get_text()
+    if '在玩' in user_name_message:
+        user_game_do = user_name_message.split("部")[0]
+    if '玩过' in user_name_message:
+        user_game_collect = user_name_message.split("部")[0]
+    if '想玩' in user_name_message:
+        user_game_wish = user_name_message.split("部")[0]
+    if '搁置' in user_name_message:
+        user_game_on_hold = user_name_message.split("部")[0]
+    if '抛弃' in user_name_message:
+        user_game_dropped = user_name_message.split("部")[0]
+
+print(user_name,user_code,user_join_time,user_intro)
+print(user_anime_do,user_anime_collect,user_anime_wish,user_anime_on_hold,user_anime_dropped)
+print(user_game_do,user_game_collect,user_game_wish,user_game_on_hold,user_game_dropped)
+
