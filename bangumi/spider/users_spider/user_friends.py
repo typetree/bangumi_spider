@@ -49,7 +49,8 @@ if __name__ == '__main__':
             if friend['user_code'] not in user_dict:
                 user_dict[friend['user_code']] = friend['user_name']
 
-        print('用户:{},好友数:{},好友列表:{}'.format(
+        print('用户:{},名称:{},好友数:{},好友列表:{}'.format(
+            USER_CODE,
             user_dict[USER_CODE],
             len(friends),
             [friend['user_name'] for friend in friends if friend]))
