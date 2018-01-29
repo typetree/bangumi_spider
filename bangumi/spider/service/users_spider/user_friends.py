@@ -31,10 +31,6 @@ def find_friends(USER_CODE):
     return data
 
 
-
-
-
-
 if __name__ == '__main__':
 
     user_found = []  # 记录已查找的用户code
