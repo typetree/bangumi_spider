@@ -4,6 +4,7 @@
 from bangumi.client.mysql_client import get_connect
 from bangumi.constants.table_constants import USER_INFO_STATUS_DOING
 from bangumi.spider.dao.user_info_dao import *
+from bangumi.spider.dto.SpiderVersionDTO import SpiderVersionDTO
 from bangumi.spider.service.spider_version.spider_version import get_spider_version
 from bangumi.utils.MyException import MyException
 
@@ -14,13 +15,12 @@ if __name__ == "__main__":
 
         spider_version_data = get_spider_version(conn, 'user_info', USER_INFO_STATUS_DOING)
 
-        if spider_version_data == None or spider_version_data == "":
-            raise MyException("select spider_version_data is none ")
+        svd = spider_version_data[0]
 
-        sql_find_by_spider_version = "spider_version != '{}' and status == '{}' and active_degree >= '{}'"\
-            .format(spider_version_data[0]['spider_version'], 'ENABLE', spider_version_data[0]['active_degree'])
-        data = user_info_select(conn, sql_find_by_spider_version)
-        print(data)
+        sql_find_by_spider_version = "spider_version != '{}' and status = '{}' and active_degree >= '{}'"\
+            .format(svd.spider_version, 'ENABLE', str(svd.active_degree))
+        uids = user_info_select(conn, sql_find_by_spider_version)
+        print(uids)
 
 
     except Exception as e:

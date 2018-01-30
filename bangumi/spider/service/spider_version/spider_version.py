@@ -3,6 +3,7 @@
 from bangumi.constants.table_constants import USER_INFO_STATUS_DOING
 from bangumi.spider.dao.spider_version_dao import *
 from bangumi.client.mysql_client import get_connect
+from bangumi.utils.MyException import MyException
 from bangumi.utils.common_util import get_now_time
 
 
@@ -10,6 +11,10 @@ def get_spider_version(conn, version, status):
 
     where_sql = "version = '{}' and status = '{}'".format(version, status)
     spider_version_data = spider_version_select(conn, where_sql)
+
+    if spider_version_data == None or len(spider_version_data) == 0:
+        raise MyException("select spider_version_data is none ")
+
     return spider_version_data
 
 

@@ -1,6 +1,7 @@
 # *_*coding:utf-8 *_*
 # author: hoicai
 from bangumi.client.mysql_client import execute_sql, execute_select_sql
+from bangumi.spider.dto.UserInfoDTO import UserInfoDTO
 
 
 def user_info_select(conn, where_sql):
@@ -15,8 +16,12 @@ def user_info_select(conn, where_sql):
         create_time, update_time from user_info
         where """ + where_sql
 
-    data = execute_select_sql(conn, select_sql)
-    return data
+    rows = execute_select_sql(conn, select_sql)
+    uids =[]
+    for row in rows:
+        uid = UserInfoDTO(row)
+        uids.append(uid)
+    return uids
 
 
 def user_info_insert(conn, data):
