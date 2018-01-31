@@ -1,6 +1,8 @@
 # *_*coding:utf-8 *_*
 # author: hoicai
 
+# 用户主页
+USER_INDEX = 'http://bangumi.tv/user/'
 # 收藏的角色
 CHANNEL_MONO_CHARACTER = '/mono/character'
 # 收藏的人物
@@ -25,7 +27,7 @@ CHANNEL_DOUJIN = '/doujin'
 
 
 def get_user_url(user_code, channel=""):
-    user_url = 'http://bangumi.tv/user/{}{}'.format(user_code,channel)
+    user_url = '{}{}{}'.format(USER_INDEX,user_code,channel)
     return user_url
 
 

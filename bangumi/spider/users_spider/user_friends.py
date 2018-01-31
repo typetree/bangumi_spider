@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 import requests
 
 from bangumi.constants import url_constants
+from bangumi.dto.UserInfoDTO import UserInfoDTO
 
 
 def find_friends(USER_CODE):
@@ -13,7 +14,15 @@ def find_friends(USER_CODE):
     user_hearders = url_constants.get_friends_headers()
 
     time.sleep(random.uniform(0.2, 0.5))
-    response = requests.get(user_url, headers=user_hearders)
+    Flag = True
+    while Flag:
+        try:
+            Flag = False
+            response = requests.get(user_url, headers=user_hearders)
+        except Exception as e:
+            print(e)
+            Flag = True
+
     response.encoding = 'utf-8'
     soup = BeautifulSoup(response.text, 'lxml')
     # print(soup)
@@ -23,11 +32,10 @@ def find_friends(USER_CODE):
 
     data = [];
     for user_code, user_name in zip(user_codes, user_names):
-        info = {
-            'user_code': user_code.get('href')[6:],
-            'user_name': user_name.get_text().split(" ")[1]
-        }
-        data.append(info)
+        userInfoDTO = UserInfoDTO()
+        userInfoDTO.code = str(user_code.get('href')[6:])
+        userInfoDTO.name = user_name.get_text().split(" ")[1]
+        data.append(userInfoDTO)
     return data
 
 

@@ -1,7 +1,7 @@
 # *_*coding:utf-8 *_*
 # author: hoicai
 from bangumi.client.mysql_client import execute_sql, execute_select_sql
-from bangumi.spider.dto.SpiderVersionDTO import SpiderVersionDTO
+from bangumi.dto.SpiderVersionDTO import SpiderVersionDTO
 
 
 def spider_version_select(conn, where_sql):
@@ -40,7 +40,7 @@ def spider_version_update(conn, svd: SpiderVersionDTO):
         update spider_version set
         optimistic = optimistic + 1, version = %s, spider_version = %s, active_degree = %s, 
         log = %s, status = %s, create_time = %s, update_time = %s
-        where id = %s, optimistic = %s
+        where id = %s and optimistic = %s
     """
     params = (
         svd.version, svd.spider_version, svd.active_degree,

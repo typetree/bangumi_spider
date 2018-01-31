@@ -28,7 +28,7 @@ def execute_sql(conn, sql, params):
             cursor.execute(sql, params)
             conn.commit()
 
-            print("操作成功,sql:{},params:{}", sql, params)
+            # print("操作成功,sql:{},params:{}", sql, params)
             flag = False
         except Exception as e:
             print("操作出错，重试中...sql:{},params:{},e:{}", sql, params, e)
@@ -51,7 +51,7 @@ def execute_select_sql(conn, sql):
             cursor.execute(sql)
             conn.commit()
 
-            print("操作成功,sql:{},params:{}", sql)
+            # print("操作成功,sql:{},params:{}", sql)
             flag = False
         except Exception as e:
             print("操作出错，重试中...sql:{},params:{},e:{}", sql, e)
