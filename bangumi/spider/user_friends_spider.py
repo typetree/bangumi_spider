@@ -5,8 +5,8 @@ import time
 from bs4 import BeautifulSoup
 import requests
 
-from bangumi.constants import url_constants
-from bangumi.dto.UserInfoDTO import UserInfoDTO
+from ..constants import url_constants
+from ..dto import user_info_dto
 
 
 def find_friends(USER_CODE):
@@ -32,7 +32,7 @@ def find_friends(USER_CODE):
 
     data = [];
     for user_code, user_name in zip(user_codes, user_names):
-        userInfoDTO = UserInfoDTO()
+        userInfoDTO = user_info_dto.UserInfoDTO()
         userInfoDTO.code = str(user_code.get('href')[6:])
         userInfoDTO.name = user_name.get_text().split(" ")[1]
         data.append(userInfoDTO)

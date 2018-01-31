@@ -3,12 +3,12 @@
 from bs4 import BeautifulSoup
 import requests
 
-from bangumi.constants.url_constants import get_user_url, get_user_headers
+from ..constants import url_constants
 
 
 def get_user_soup(UserCode):
-    user_url = get_user_url(UserCode)
-    headers = get_user_headers()
+    user_url = url_constants.get_user_url(UserCode)
+    headers = url_constants.get_user_headers()
 
     response = requests.get(user_url, headers=headers)
     response.encoding = 'utf-8'

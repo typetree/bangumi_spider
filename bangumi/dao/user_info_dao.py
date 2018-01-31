@@ -1,7 +1,7 @@
 # *_*coding:utf-8 *_*
 # author: hoicai
-from bangumi.client.mysql_client import execute_sql, execute_select_sql
-from bangumi.dto.UserInfoDTO import UserInfoDTO
+from ..client import mysql_client
+from ..dto import user_info_dto
 
 
 def user_info_select(conn, where_sql):
@@ -16,15 +16,15 @@ def user_info_select(conn, where_sql):
         create_time, update_time from user_info
         where """ + where_sql
 
-    rows = execute_select_sql(conn, select_sql)
+    rows = mysql_client.execute_select_sql(conn, select_sql)
     uids =[]
     for row in rows:
-        uid = UserInfoDTO(row)
+        uid = user_info_dto.UserInfoDTO(row)
         uids.append(uid)
     return uids
 
 
-def user_info_insert(conn, uid: UserInfoDTO):
+def user_info_insert(conn, uid: user_info_dto.UserInfoDTO):
     insert_sql = """
         insert into user_info (
         optimistic, code, name, join_time, 
@@ -51,11 +51,11 @@ def user_info_insert(conn, uid: UserInfoDTO):
         uid.real_do, uid.real_collect, uid.real_wish, uid.real_on_hold, uid.real_dropped,
         uid.group_num, uid.create_time, uid.update_time
     )
-    flag = execute_sql(conn, insert_sql, params)
+    flag = mysql_client.execute_sql(conn, insert_sql, params)
     return flag
 
 
-def user_info_update(conn, uid: UserInfoDTO):
+def user_info_update(conn, uid: user_info_dto.UserInfoDTO):
     update_sql = """
         update user_info set
         optimistic = optimistic + 1, code = %s, name = %s, join_time = %s, 
@@ -79,5 +79,5 @@ def user_info_update(conn, uid: UserInfoDTO):
         uid.group_num, uid.create_time, uid.update_time,
         uid.id, uid.optimistic
     )
-    flag = execute_sql(conn, update_sql, params)
+    flag = mysql_client.execute_sql(conn, update_sql, params)
     return flag
