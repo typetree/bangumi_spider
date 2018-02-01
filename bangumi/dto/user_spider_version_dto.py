@@ -35,6 +35,8 @@ class UserSpiderVersionDTO(object):
             self.user_group_version = None
             self.user_group_fingerprint = None
             self.user_group_active_degree = None
+            self.log = None
+            self.status = None
             self.create_time = None
             self.update_time = None
         else:
@@ -70,5 +72,7 @@ class UserSpiderVersionDTO(object):
             self.user_group_version = row[29]
             self.user_group_fingerprint = row[30]
             self.user_group_active_degree = row[31]
-            self.create_time = row[32]
-            self.update_time = row[33]
+            self.log = row[32]
+            self.status = row[33]
+            self.create_time = row[34]
+            self.update_time = row[35]

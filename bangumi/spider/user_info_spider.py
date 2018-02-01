@@ -1,5 +1,9 @@
 # *_*coding:utf-8 *_*
 # author: hoicai
+import random
+import time
+import traceback
+
 from bs4 import BeautifulSoup
 import requests
 
@@ -11,7 +15,16 @@ def get_user_soup(UserCode):
     user_url = url_constants.get_user_url(UserCode)
     headers = url_constants.get_user_headers()
 
-    response = requests.get(user_url, headers=headers)
+    time.sleep(random.uniform(0.2, 0.5))
+    Flag = True
+    while Flag:
+        try:
+            Flag = False
+            response = requests.get(user_url, headers=headers)
+        except Exception:
+            print(traceback.format_exc())
+            Flag = True
+
     response.encoding = 'utf-8'
     soup = BeautifulSoup(response.text, 'lxml')
     # print(soup)

@@ -40,3 +40,5 @@ def update_spider_version(conn, uid: user_info_dto.UserInfoDTO, svd: spider_vers
     uid.spider_version = svd.spider_version
     while not flag:
         flag = user_info_dao.user_info_update(conn, uid)
+
+

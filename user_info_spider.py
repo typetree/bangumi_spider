@@ -5,17 +5,17 @@ import traceback
 
 from bangumi.client import mysql_client
 from bangumi.constants import table_constants
-from bangumi.dto import user_info_dto
-from bangumi.service import spider_version_service, user_info_service
+from bangumi.dto import user_info_dto, user_spider_version_dto
+from bangumi.service import spider_version_service, user_info_service, user_spider_version_service
 from bangumi.spider import user_info_spider
 from bangumi.utils import common_util
 
 
-def update_user_info(conn, uid: user_info_dto.UserInfoDTO):
+def update_user_info(conn, uid: user_info_dto.UserInfoDTO, usvd: user_spider_version_dto.UserSpiderVersionDTO):
     uid_update = user_info_spider.get_user_info(uid)
     user_info_fingerprint = common_util.hashlib_md5(uid_update)
-    if uid.hash_value != user_info_fingerprint:
-
+    if usvd.user_info_fingerprint != user_info_fingerprint:
+        user_info_service.update_by_spider(conn, uid)
     print(uid)
 
 def all_user_info(svd):
@@ -24,16 +24,28 @@ def all_user_info(svd):
         FLAG = True
         while FLAG:
             # 从用户表中取出非该时间戳,且活跃度大于等于需求的用户信息
-            uids = user_info_service.find_by_spider_version(conn, svd, 10)
+            user_spider_version_dtos = user_spider_version_service.find_by_user_info_version(conn, svd, 10)
 
             # 如果找不到，更新爬虫版本状态为完成，结束循环
-            if uids is None or len(uids) == 0:
+            if user_spider_version_dtos is None or len(user_spider_version_dtos) == 0:
                 spider_version_service.finish_spider_version(conn, svd)
                 FLAG = False
 
-            for uid in uids:
-                update_user_info(conn, uid)
-            user_info_service.update_spider_version(conn, uid, svd)
+            for usvDto in user_spider_version_dtos:
+                uids = user_info_service.find_by_code(conn, usvDto.user_code)
+                if uids is None or len(uids)==0:
+                    log = "version:{}, user:{} is not existed in user_info".format(svd.spider_version, usvDto.user_code)
+                    print(log)
+                    user_spider_version_service.unable_user_info_version(conn, usvDto, svd.spider_version, log)
+                    continue
+                elif len(uids) > 1:
+                    log = "version:{}, user:{} is more than 1 in user_info".format(svd.spider_version, usvDto.user_code)
+                    print(log)
+                    user_spider_version_service.unable_user_info_version(conn, usvDto, svd.spider_version, log)
+                    continue
+
+                update_user_info(conn, uids[0], usvDto)
+                user_spider_version_service.update_user_info_version(conn, uid, svd)
 
     except Exception:
         print(traceback.format_exc())
@@ -45,8 +57,6 @@ if __name__ == "__main__":
 
     try:
         conn = mysql_client.get_connect()
-
-        update_user_info(conn,"zisudaki")
 
         spider_version_data = spider_version_service.get_spider_version(
             conn, 'user_info', table_constants.SPIDER_VERSION_STATUS_DOING)

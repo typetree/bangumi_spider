@@ -1,33 +1,23 @@
-/*
-SQLyog Ultimate v12.09 (64 bit)
-MySQL - 5.7.20-0ubuntu0.16.04.1 : Database - bangumi
-*********************************************************************
-*/
 
-/*!40101 SET NAMES utf8 */;
 
-/*!40101 SET SQL_MODE=''*/;
-
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-/*Table structure for table `spider_version` */
+DROP TABLE IF EXISTS `spider_version`;
 
 CREATE TABLE `spider_version` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `optimistic` int(11) NOT NULL,
   `version` varchar(32) NOT NULL COMMENT '版本',
-  `spider_version` varchar(32) NOT NULL COMMENT '创建时间+版本',
+  `spider_version` varchar(50) NOT NULL COMMENT '创建时间+版本',
   `active_degree` int(11) NOT NULL DEFAULT '50' COMMENT '爬虫活跃度',
   `log` varchar(100) DEFAULT NULL COMMENT '日志',
+  `status` varchar(32) NOT NULL COMMENT '状态    爬虫中=DOING ,完成=FINISH',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`),
-  KEY `spider_version` (`spider_version`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `spider_version` (`spider_version`,`status`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
-/*Table structure for table `user_friends` */
+
+DROP TABLE IF EXISTS `user_friends`;
 
 CREATE TABLE `user_friends` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -39,17 +29,17 @@ CREATE TABLE `user_friends` (
   `friend_user_code` varchar(32) NOT NULL COMMENT '关注的好友编码',
   `friend_user_name` varchar(32) NOT NULL COMMENT '关注的好友名',
   `is_friend` varchar(32) DEFAULT NULL COMMENT '是否互相关注',
-  `spider_version` varchar(32) NOT NULL COMMENT '更新版本：时间戳',
   `status` varchar(32) NOT NULL COMMENT 'ENABLE=可用,ENABLE=不可用',
   `create_time` datetime NOT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`,`user_code`,`friend_user_id`,`friend_user_code`,`spider_version`)
+  KEY `user_id` (`user_id`,`user_code`,`friend_user_id`,`friend_user_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*Table structure for table `users_info` */
 
-CREATE TABLE `users_info` (
+DROP TABLE IF EXISTS `user_info`;
+
+CREATE TABLE `user_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `optimistic` int(11) NOT NULL,
   `code` varchar(32) NOT NULL COMMENT '用户编码',
@@ -59,7 +49,7 @@ CREATE TABLE `users_info` (
   `bangumi_user_id` varchar(32) DEFAULT NULL COMMENT 'bgm的id',
   `status` varchar(32) NOT NULL COMMENT '状态 ENABLE=可用,ENABLE=不可用',
   `hash_value` varchar(50) DEFAULT NULL COMMENT '更新对比值',
-  `spider_version` varchar(32) DEFAULT NULL COMMENT '更新版本：时间戳',
+  `spider_version` varchar(100) DEFAULT '0' COMMENT '更新版本：时间戳',
   `active_degree` int(11) NOT NULL DEFAULT '100' COMMENT '活跃度',
   `friends_num` int(11) DEFAULT NULL COMMENT '好友数',
   `last_active_time` datetime DEFAULT NULL COMMENT '最后一次活跃时间',
@@ -89,9 +79,54 @@ CREATE TABLE `users_info` (
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`),
   KEY `code` (`code`,`bangumi_user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23299 DEFAULT CHARSET=utf8;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+DROP TABLE IF EXISTS `user_spider_version`;
+
+CREATE TABLE `user_spider_version` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `optimistic` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL COMMENT '用户表id',
+  `user_code` varchar(32) NOT NULL COMMENT '用户表编码',
+  `bangumi_user_id` varchar(32) DEFAULT NULL COMMENT '番组计划id',
+  `user_info_version` varchar(64) DEFAULT NULL COMMENT '用户表爬虫版本',
+  `user_info_fingerprint` varchar(100) DEFAULT NULL,
+  `user_info_active_degree` int(11) DEFAULT '100',
+  `user_friends_version` varchar(64) DEFAULT NULL COMMENT '用户关系爬虫版本',
+  `user_friends_fingerprint` varchar(100) DEFAULT NULL,
+  `user_friends_active_degree` int(11) DEFAULT '100',
+  `user_anime_version` varchar(64) DEFAULT NULL,
+  `user_anime_fingerprint` varchar(100) DEFAULT NULL,
+  `user_anime_active_degree` int(11) DEFAULT '100',
+  `user_game_version` varchar(64) DEFAULT NULL,
+  `user_game_fingerprint` varchar(100) DEFAULT NULL,
+  `user_game_active_degree` int(11) DEFAULT '100',
+  `user_book_version` varchar(64) DEFAULT NULL,
+  `user_book_fingerprint` varchar(100) DEFAULT NULL,
+  `user_book_active_degree` int(11) DEFAULT '100',
+  `user_real_version` varchar(64) DEFAULT NULL,
+  `user_real_fingerprint` varchar(100) DEFAULT NULL,
+  `user_real_active_degree` int(11) DEFAULT '100',
+  `user_mono_character_version` varchar(64) DEFAULT NULL COMMENT '用户角色收藏',
+  `user_mono_character_fingerprint` varchar(100) DEFAULT NULL,
+  `user_mono_character_active_degree` int(11) DEFAULT '100',
+  `user_mono_person_version` varchar(64) DEFAULT NULL COMMENT '用户人物收藏',
+  `user_mono_person_fingerprint` varchar(100) DEFAULT NULL,
+  `user_mono_person_active_degree` int(11) DEFAULT '100',
+  `user_group_version` varchar(64) DEFAULT NULL,
+  `user_group_fingerprint` varchar(100) DEFAULT NULL,
+  `user_group_active_degree` int(11) DEFAULT '100',
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+  KEY `code` (`user_id`,`user_code`,
+      `user_info_version`,`user_info_active_degree`,`user_friends_version`,`user_friends_active_degree`,
+      `user_anime_version`,`user_anime_active_degree`,`user_game_version`,`user_game_active_degree`,
+      `user_book_version`,`user_book_active_degree`,`user_real_version`,`user_real_active_degree`,
+      `user_mono_character_version`,`user_mono_character_active_degree`,`user_mono_person_version`,`user_mono_person_active_degree`,
+      `user_group_version`,`user_group_active_degree`
+      )
+) ENGINE=InnoDB AUTO_INCREMENT=32768 DEFAULT CHARSET=latin1;
+
+
