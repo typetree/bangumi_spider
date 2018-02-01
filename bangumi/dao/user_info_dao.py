@@ -5,7 +5,7 @@ from ..dto import user_info_dto
 
 
 def user_info_select(conn, where_sql):
-    select_sql = """
+    select_sql = """ 
         select id, optimistic, code, name, join_time, 
         homepage, bangumi_user_id, status, hash_value, spider_version,
         active_degree, friends_num, last_active_time, intro, anime_do, 

@@ -3,6 +3,7 @@
 from bs4 import BeautifulSoup
 import requests
 
+from bangumi.dto import user_info_dto
 from ..constants import url_constants
 
 
@@ -13,11 +14,11 @@ def get_user_soup(UserCode):
     response = requests.get(user_url, headers=headers)
     response.encoding = 'utf-8'
     soup = BeautifulSoup(response.text, 'lxml')
-    print(soup)
+    # print(soup)
     return soup
 
 
-def get_user(UserCode):
+def get_user_info(UserCode):
     soup = get_user_soup(UserCode)
     user_name = soup.select('#headerProfile > div > div.headerContainer > h1 > div.inner > a')[
         0].get_text()
@@ -125,35 +126,37 @@ def get_user(UserCode):
         if '抛弃' in user_real_message:
             user_real_dropped = user_real_message.split("部")[0]
 
-    group_num = \
-    soup.select("#group > div.horizontalOptions.clearit > ul > li.title > h2")[0].get_text().split(
-        user_name)[1][7:-1]
+    group_num_content = soup.select("#group > div.horizontalOptions.clearit > ul > li.title > h2")
+    group_num = 0
+    if len(group_num_content) != 0:
+        group_num = int(group_num_content[0].get_text().split(user_name)[1][7:-1])
 
-    user = {
-        "name": user_name,
-        "code": user_code,
-        "join_time": user_join_time,
-        "intro": user_intro,
-        "anime_do": user_anime_do,
-        "anime_collect": user_anime_collect,
-        "anime_wish": user_anime_wish,
-        "anime_on_hold": user_anime_on_hold,
-        "anime_dropped": user_anime_dropped,
-        "game_do": user_game_do,
-        "game_collect": user_game_collect,
-        "game_wish": user_game_wish,
-        "game_on_hold": user_game_on_hold,
-        "game_dropped": user_game_dropped,
-        "book_do": user_book_do,
-        "book_collect": user_book_collect,
-        "book_wish": user_book_wish,
-        "book_on_hold": user_book_on_hold,
-        "book_dropped": user_book_dropped,
-        "real_do": user_real_do,
-        "real_collect": user_real_collect,
-        "real_wish": user_real_wish,
-        "real_on_hold": user_real_on_hold,
-        "real_dropped": user_real_dropped,
-        "group_num": group_num,
-    }
-    return user
+    uid = user_info_dto.UserInfoDTO()
+    
+    uid.name = user_name
+    uid.code = user_code
+    uid.join_time = user_join_time
+    uid.intro = user_intro
+    uid.anime_do = user_anime_do
+    uid.anime_collect = user_anime_collect
+    uid.anime_wish = user_anime_wish
+    uid.anime_on_hold = user_anime_on_hold
+    uid.anime_dropped = user_anime_dropped
+    uid.game_do = user_game_do
+    uid.game_collect = user_game_collect
+    uid.game_wish = user_game_wish
+    uid.game_on_hold = user_game_on_hold
+    uid.game_dropped = user_game_dropped
+    uid.book_do = user_book_do
+    uid.book_collect = user_book_collect
+    uid.book_wish = user_book_wish
+    uid.book_on_hold = user_book_on_hold
+    uid.book_dropped = user_book_dropped
+    uid.real_do = user_real_do
+    uid.real_collect = user_real_collect
+    uid.real_wish = user_real_wish
+    uid.real_on_hold = user_real_on_hold
+    uid.real_dropped = user_real_dropped
+    uid.group_num = group_num
+ 
+    return uid

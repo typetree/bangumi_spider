@@ -1,15 +1,24 @@
 # *_*coding:utf-8 *_*
 # author: hoicai
 import threading
+import traceback
 
-from bangumi.service import user_info_service
-from bangumi.spider import user_friends_spider
 from bangumi.client import mysql_client
 from bangumi.constants import table_constants
-from bangumi.service import spider_version_service
+from bangumi.dto import user_info_dto
+from bangumi.service import spider_version_service, user_info_service
+from bangumi.spider import user_info_spider
+from bangumi.utils import common_util
 
 
-def all_user_spider(svd):
+def update_user_info(conn, uid: user_info_dto.UserInfoDTO):
+    uid_update = user_info_spider.get_user_info(uid)
+    user_info_fingerprint = common_util.hashlib_md5(uid_update)
+    if uid.hash_value != user_info_fingerprint:
+
+    print(uid)
+
+def all_user_info(svd):
     try:
         conn = mysql_client.get_connect()
         FLAG = True
@@ -23,24 +32,21 @@ def all_user_spider(svd):
                 FLAG = False
 
             for uid in uids:
-                print("find users' friends, uid:{}".format(uid.code))
-                # 查找好友页面，获取好友用户信
-                friends = user_friends_spider.find_friends(uid.code)
-                for friend in friends:
-                    ones = user_info_service.find_by_code(conn, friend.code)
-                    if ones is None or len(ones) == 0:
-                        print("insert user,user_code:{}".format(friend.code))
-                        user_info_service.create(conn, friend)
-                user_info_service.update_spider_version(conn, uid, svd)
-    except Exception as e:
-        print(e)
+                update_user_info(conn, uid)
+            user_info_service.update_spider_version(conn, uid, svd)
+
+    except Exception:
+        print(traceback.format_exc())
     finally:
         conn.close()
+
 
 if __name__ == "__main__":
 
     try:
         conn = mysql_client.get_connect()
+
+        update_user_info(conn,"zisudaki")
 
         spider_version_data = spider_version_service.get_spider_version(
             conn, 'user_info', table_constants.SPIDER_VERSION_STATUS_DOING)
@@ -48,9 +54,9 @@ if __name__ == "__main__":
 
         svd = spider_version_data[0]
 
-        threading.Thread(target=all_user_spider, args=(svd,)).start()
+        threading.Thread(target=all_user_info, args=(svd,)).start()
 
-    except Exception as e:
+    except Exception:
+        print(traceback.format_exc())
+    finally:
         conn.close()
-        print(e)
-

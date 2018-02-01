@@ -3,7 +3,6 @@
 
 
 class UserInfoDTO(object):
-
     def __init__(self, row=None):
         if row is None:
             self.id = None
@@ -81,3 +80,4 @@ class UserInfoDTO(object):
             self.group_num = row[34]
             self.create_time = row[35]
             self.update_time = row[36]
+
