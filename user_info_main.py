@@ -22,12 +22,13 @@ def update_user_info(conn, uid: user_info_dto.UserInfoDTO,
     if usvd.user_info_fingerprint != user_info_fingerprint:
         print("{}:{} update".format(uid.code, uid_update.name))
         user_info_service.spider_update(conn, uid, uid_update)
+        usvd.user_info_fingerprint = user_info_fingerprint
         active_degree = uid.active_degree + 1
     elif uid.active_degree > 0:
         active_degree = uid.active_degree - 1
 
     usvd.user_info_version = svd
-    usvd.user_info_fingerprint = active_degree
+    usvd.user_info_active_degree = active_degree
     usvd.bangumi_user_id = uid_update.bangumi_user_id
     print("{}:{} finish, version:{}".format(uid.code, uid_update.name, svd))
     user_spider_version_service.update_version(conn, usvd)

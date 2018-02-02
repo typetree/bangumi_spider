@@ -5,6 +5,7 @@ import MySQLdb
 import time
 
 from bangumi.constants.db_constants import *
+from bangumi.utils import my_exception
 
 
 def get_connect():
@@ -17,13 +18,15 @@ def get_connect():
 
 
 def execute_sql(conn, sql, params):
+
+    log = ''
     cursor = conn.cursor()
 
     flag = True
     retry_num = 5
     while flag:
         if retry_num <= 0:
-            return False
+            raise my_exception.MyException(log)
         try:
             cursor.execute(sql, params)
             conn.commit()
@@ -31,14 +34,17 @@ def execute_sql(conn, sql, params):
             # print("操作成功,sql:{},params:{}", sql, params)
             flag = False
         except Exception as e:
-            print("操作出错，重试中...sql:{},params:{},e:{}", sql, params, e)
+            log = "操作出错，重试中...sql:{},params:{},e:{}".format(sql, params, e)
+            print(log)
             retry_num -= 1
             time.sleep(1)
 
-    return True
+
 
 
 def execute_select_sql(conn, sql):
+
+    log = ''
     cursor = conn.cursor()
 
     flag = True
@@ -46,7 +52,7 @@ def execute_select_sql(conn, sql):
 
     while flag:
         if retry_num <= 0:
-            return False
+            raise my_exception.MyException(log)
         try:
             cursor.execute(sql)
             conn.commit()
@@ -54,7 +60,8 @@ def execute_select_sql(conn, sql):
             # print("操作成功,sql:{},params:{}", sql)
             flag = False
         except Exception as e:
-            print("操作出错，重试中...sql:{},params:{},e:{}", sql, e)
+            log = "操作出错，重试中...sql:{},e:{}".format(sql, e)
+            print(log)
             retry_num -= 1
             time.sleep(1)
 

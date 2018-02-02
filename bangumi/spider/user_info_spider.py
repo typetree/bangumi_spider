@@ -47,6 +47,8 @@ def get_user_info(UserCode):
     user_profile_photo = photo_style[photo_style.find("'")+1: photo_style.rfind("'")]
 
     user_bangumi_user_id = user_profile_photo[user_profile_photo.rfind("/")+1: user_profile_photo.rfind(".")]
+    if user_bangumi_user_id == 'icon':
+        user_bangumi_user_id = UserCode
 
     user_join_time = soup.select('span.tip')[0].get_text().split(' ')[0]
 

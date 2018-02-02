@@ -37,16 +37,13 @@ def create(conn, uid: user_info_dto.UserInfoDTO):
 
 
 def update_spider_version(conn, uid: user_info_dto.UserInfoDTO, svd: spider_version_dto.SpiderVersionDTO):
-    flag = False
 
     uid.spider_version = svd.spider_version
-    while not flag:
-        flag = user_info_dao.user_info_update(conn, uid)
+    user_info_dao.user_info_update(conn, uid)
 
 
 def spider_update(conn, uid: user_info_dto.UserInfoDTO, uid_update:user_info_dto.UserInfoDTO):
-    flag = False
-    
+
     uid.name = uid_update.name
     uid.profile_photo = uid_update.profile_photo
     uid.bangumi_user_id = uid_update.bangumi_user_id
@@ -82,11 +79,9 @@ def spider_update(conn, uid: user_info_dto.UserInfoDTO, uid_update:user_info_dto
 
     uid.last_active_time = common_util.get_now_time()
 
-    while not flag:
-        try:
-            flag = user_info_dao.user_info_update(conn, uid)
-        except Exception:
-            print(traceback.format_exc())
+    user_info_dao.user_info_update(conn, uid)
+
+
 
 
 def reduce_active_degree(conn, uid: user_info_dto.UserInfoDTO):
