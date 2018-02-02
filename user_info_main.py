@@ -11,12 +11,25 @@ from bangumi.spider import user_info_spider
 from bangumi.utils import common_util
 
 
-def update_user_info(conn, uid: user_info_dto.UserInfoDTO, usvd: user_spider_version_dto.UserSpiderVersionDTO):
-    uid_update = user_info_spider.get_user_info(uid)
-    user_info_fingerprint = common_util.hashlib_md5(uid_update)
+def update_user_info(conn, uid: user_info_dto.UserInfoDTO,
+                     usvd: user_spider_version_dto.UserSpiderVersionDTO, svd):
+    uid_update = user_info_spider.get_user_info(uid.code)
+    user_info_fingerprint = common_util.hashlib_md5([uid_update])
+
+    active_degree = usvd.user_info_active_degree
     if usvd.user_info_fingerprint != user_info_fingerprint:
-        user_info_service.update_by_spider(conn, uid)
-    print(uid)
+        print("{}:{} update".format(uid.code, uid_update.name))
+        user_info_service.spider_update(conn, uid, uid_update)
+        active_degree = uid.active_degree + 1
+    elif uid.active_degree > 0:
+        active_degree = uid.active_degree - 1
+
+    usvd.user_info_version = svd
+    usvd.user_info_fingerprint = active_degree
+    usvd.bangumi_user_id = uid_update.bangumi_user_id
+    print("{}:{} finish, version:{}".format(uid.code, uid_update.name, svd))
+    user_spider_version_service.update_version(conn, usvd)
+
 
 def all_user_info(svd):
     try:
@@ -44,8 +57,7 @@ def all_user_info(svd):
                     user_spider_version_service.unable_user_info_version(conn, usvDto, svd.spider_version, log)
                     continue
 
-                update_user_info(conn, uids[0], usvDto)
-                user_spider_version_service.update_user_info_version(conn, uid, svd)
+                update_user_info(conn, uids[0], usvDto, svd.spider_version)
 
     except Exception:
         print(traceback.format_exc())
@@ -68,5 +80,5 @@ if __name__ == "__main__":
 
     except Exception:
         print(traceback.format_exc())
-    finally:
         conn.close()
+    # finally:

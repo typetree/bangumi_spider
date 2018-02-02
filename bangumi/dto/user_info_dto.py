@@ -1,7 +1,6 @@
 # *_*coding:utf-8 *_*
 # author: hoicai
 
-
 class UserInfoDTO(object):
     def __init__(self, row=None):
         if row is None:
@@ -12,6 +11,7 @@ class UserInfoDTO(object):
             self.join_time = None
             self.homepage = None
             self.bangumi_user_id = None
+            self.profile_photo = None
             self.status = None
             self.hash_value = None
             self.spider_version = None
@@ -50,34 +50,34 @@ class UserInfoDTO(object):
             self.join_time = row[4]
             self.homepage = row[5]
             self.bangumi_user_id = row[6]
-            self.status = row[7]
-            self.hash_value = row[8]
-            self.spider_version = row[9]
-            self.active_degree = row[10]
-            self.friends_num = row[11]
-            self.last_active_time = row[12]
-            self.intro = row[13]
-            self.anime_do = row[14]
-            self.anime_collect = row[15]
-            self.anime_wish = row[16]
-            self.anime_on_hold = row[17]
-            self.anime_dropped = row[18]
-            self.game_do = row[19]
-            self.game_collect = row[20]
-            self.game_wish = row[21]
-            self.game_on_hold = row[22]
-            self.game_dropped = row[23]
-            self.book_do = row[24]
-            self.book_collect = row[25]
-            self.book_wish = row[26]
-            self.book_on_hold = row[27]
-            self.book_dropped = row[28]
-            self.real_do = row[29]
-            self.real_collect = row[30]
-            self.real_wish = row[31]
-            self.real_on_hold = row[32]
-            self.real_dropped = row[33]
-            self.group_num = row[34]
-            self.create_time = row[35]
-            self.update_time = row[36]
-
+            self.profile_photo = row[7]
+            self.status = row[8]
+            self.hash_value = row[9]
+            self.spider_version = row[10]
+            self.active_degree = row[11]
+            self.friends_num = row[12]
+            self.last_active_time = row[13]
+            self.intro = row[14]
+            self.anime_do = row[15]
+            self.anime_collect = row[16]
+            self.anime_wish = row[17]
+            self.anime_on_hold = row[18]
+            self.anime_dropped = row[19]
+            self.game_do = row[20]
+            self.game_collect = row[21]
+            self.game_wish = row[22]
+            self.game_on_hold = row[23]
+            self.game_dropped = row[24]
+            self.book_do = row[25]
+            self.book_collect = row[26]
+            self.book_wish = row[27]
+            self.book_on_hold = row[28]
+            self.book_dropped = row[29]
+            self.real_do = row[30]
+            self.real_collect = row[31]
+            self.real_wish = row[32]
+            self.real_on_hold = row[33]
+            self.real_dropped = row[34]
+            self.group_num = row[35]
+            self.create_time = row[36]
+            self.update_time = row[37]

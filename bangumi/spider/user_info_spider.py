@@ -7,7 +7,8 @@ import traceback
 from bs4 import BeautifulSoup
 import requests
 
-from bangumi.dto import user_info_dto
+from ..dto import user_info_dto
+from ..utils import my_exception
 from ..constants import url_constants
 
 
@@ -33,13 +34,26 @@ def get_user_soup(UserCode):
 
 def get_user_info(UserCode):
     soup = get_user_soup(UserCode)
-    user_name = soup.select('#headerProfile > div > div.headerContainer > h1 > div.inner > a')[
-        0].get_text()
+    user_name = soup.select('#headerProfile > div > div.headerContainer > h1 > div.inner > a')[0].get_text()
     user_code = soup.select('#headerProfile > div > div.headerContainer > h1 > div.inner > small')[
                     0].get_text()[1:]
+
+    if user_code != UserCode:
+        raise my_exception.MyException("spider user homepage is fail,user_code({}) != UserCode({})"
+                                       .format(user_code, UserCode))
+
+    photo_style = soup.select("#headerProfile > div > div.headerContainer > h1 > div.headerAvatar > a > span")[0]\
+        .get("style")
+    user_profile_photo = photo_style[photo_style.find("'")+1: photo_style.rfind("'")]
+
+    user_bangumi_user_id = user_profile_photo[user_profile_photo.rfind("/")+1: user_profile_photo.rfind(".")]
+
     user_join_time = soup.select('span.tip')[0].get_text().split(' ')[0]
 
-    user_intro = soup.select('div.bio')[0].get_text()
+    user_intro_content = soup.select('div.bio')
+    user_intro = ""
+    if len(user_intro_content) != 0:
+        user_intro = user_intro_content[0].get_text()
 
     user_anime = soup.select('#anime > div.horizontalOptions.clearit > ul > li')
 
@@ -148,6 +162,8 @@ def get_user_info(UserCode):
     
     uid.name = user_name
     uid.code = user_code
+    uid.profile_photo = user_profile_photo
+    uid.bangumi_user_id = user_bangumi_user_id
     uid.join_time = user_join_time
     uid.intro = user_intro
     uid.anime_do = user_anime_do

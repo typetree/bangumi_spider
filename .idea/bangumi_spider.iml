@@ -5,7 +5,7 @@
       <excludeFolder url="file://$MODULE_DIR$/demo" />
       <excludeFolder url="file://$MODULE_DIR$/demo1" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.4 (bangumi_spider) (1)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.6.2 (D:\Users\admin\AppData\Local\Programs\Python\Python36-32\python.exe)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TestRunnerService">

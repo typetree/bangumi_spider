@@ -21,12 +21,12 @@ def user_spider_version_select(conn, where_sql):
     rows = mysql_client.execute_select_sql(conn, select_sql)
     uids =[]
     for row in rows:
-        uid = user_spider_version_dto.UserSpiderVersion(row)
+        uid = user_spider_version_dto.UserSpiderVersionDTO(row)
         uids.append(uid)
     return uids
 
 
-def user_spider_version_insert(conn, dto: user_spider_version_dto.UserSpiderVersion):
+def user_spider_version_insert(conn, dto: user_spider_version_dto.UserSpiderVersionDTO):
     insert_sql = """ insert into user_spider_version(
 		optimistic, user_id, user_code, bangumi_user_id, user_info_version, 
 		user_info_fingerprint, user_info_active_degree, user_friends_version, user_friends_fingerprint, user_friends_active_degree, 
@@ -54,7 +54,7 @@ def user_spider_version_insert(conn, dto: user_spider_version_dto.UserSpiderVers
     return flag
 
 
-def user_spider_version_update(conn, dto: user_spider_version_dto.UserSpiderVersion):
+def user_spider_version_update(conn, dto: user_spider_version_dto.UserSpiderVersionDTO):
     update_sql = """
 		update user_spider_version set optimistic = optimistic + 1,
 		user_id= %s, user_code= %s, bangumi_user_id= %s, user_info_version= %s, user_info_fingerprint= %s, 
