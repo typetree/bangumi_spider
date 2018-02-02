@@ -156,7 +156,9 @@ def get_user_info(UserCode):
     group_num_content = soup.select("#group > div.horizontalOptions.clearit > ul > li.title > h2")
     group_num = 0
     if len(group_num_content) != 0:
-        group_num = int(group_num_content[0].get_text().split(user_name)[1][7:-1])
+        temp = group_num_content[0].get_text().split(user_name)[1]
+        if len(temp) >= 7:
+            group_num = int(temp[7:-1])
 
     uid = user_info_dto.UserInfoDTO()
     

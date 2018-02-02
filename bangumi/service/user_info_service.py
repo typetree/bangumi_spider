@@ -76,8 +76,12 @@ def spider_update(conn, uid: user_info_dto.UserInfoDTO, uid_update:user_info_dto
     uid.real_on_hold = uid_update.real_on_hold
     uid.real_dropped = uid_update.real_dropped
 
+    uid.group_num = uid_update.group_num
 
     uid.update_time = common_util.get_now_time()
+
+    uid.last_active_time = common_util.get_now_time()
+
     while not flag:
         try:
             flag = user_info_dao.user_info_update(conn, uid)

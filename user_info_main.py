@@ -8,12 +8,14 @@ from bangumi.constants import table_constants
 from bangumi.dto import user_info_dto, user_spider_version_dto
 from bangumi.service import spider_version_service, user_info_service, user_spider_version_service
 from bangumi.spider import user_info_spider
-from bangumi.utils import common_util
+from bangumi.utils import common_util, my_exception
 
 
 def update_user_info(conn, uid: user_info_dto.UserInfoDTO,
                      usvd: user_spider_version_dto.UserSpiderVersionDTO, svd):
+
     uid_update = user_info_spider.get_user_info(uid.code)
+
     user_info_fingerprint = common_util.hashlib_md5([uid_update])
 
     active_degree = usvd.user_info_active_degree
@@ -56,9 +58,11 @@ def all_user_info(svd):
                     print(log)
                     user_spider_version_service.unable_user_info_version(conn, usvDto, svd.spider_version, log)
                     continue
-
-                update_user_info(conn, uids[0], usvDto, svd.spider_version)
-
+                try:
+                    update_user_info(conn, uids[0], usvDto, svd.spider_version)
+                except:
+                    log = traceback.format_exc()
+                    user_spider_version_service.unable_user_info_version(conn, usvDto, svd.spider_version, log)
     except Exception:
         print(traceback.format_exc())
     finally:
