@@ -38,7 +38,7 @@ def execute_sql(conn, sql, params):
             print(log)
             retry_num -= 1
             time.sleep(1)
-
+    return True
 
 
 

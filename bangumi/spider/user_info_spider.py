@@ -66,6 +66,8 @@ def get_user_info(UserCode):
     user_anime_dropped = None
 
     for user_anime_list in user_anime:
+        if user_anime_list == user_anime[0]:
+            continue
         user_anime_message = user_anime_list.get_text()
 
         if '在看' in user_anime_message:
@@ -91,6 +93,8 @@ def get_user_info(UserCode):
 
     user_game = soup.select('#game > div.horizontalOptions.clearit > ul > li')
     for user_game_list in user_game:
+        if user_game_list == user_game[0]:
+            continue
         user_game_message = user_game_list.get_text()
         if '在玩' in user_game_message:
             user_game_do = user_game_message.split("部")[0]
@@ -115,6 +119,8 @@ def get_user_info(UserCode):
 
     user_book = soup.select('#book > div.horizontalOptions.clearit > ul > li')
     for user_book_list in user_book:
+        if user_book_list == user_book[0]:
+            continue
         user_book_message = user_book_list.get_text()
         if '在读' in user_book_message:
             user_book_do = user_book_message.split("本")[0]
@@ -139,6 +145,8 @@ def get_user_info(UserCode):
 
     user_real = soup.select('#real > div.horizontalOptions.clearit > ul > li')
     for user_real_list in user_real:
+        if user_real_list == user_real[0]:
+            continue
         user_real_message = user_real_list.get_text()
         if '在看' in user_real_message:
             user_real_do = user_real_message.split("部")[0]
