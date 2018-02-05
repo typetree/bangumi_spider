@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="14e73f63-1d85-44f7-9ee9-fb899b3320fe" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bangumi/constants/table_constants.py" afterPath="$PROJECT_DIR$/bangumi/constants/table_constants.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bangumi/service/user_friends_service.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bangumi/service/spider_version_service.py" afterPath="$PROJECT_DIR$/bangumi/service/spider_version_service.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bangumi/service/user_info_service.py" afterPath="$PROJECT_DIR$/bangumi/service/user_info_service.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bangumi/service/user_spider_version_service.py" afterPath="$PROJECT_DIR$/bangumi/service/user_spider_version_service.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bangumi/spider/user_info_spider.py" afterPath="$PROJECT_DIR$/bangumi/spider/user_info_spider.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/user_friends_spider.py" afterPath="$PROJECT_DIR$/user_friends_spider.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/user_info_main.py" afterPath="$PROJECT_DIR$/user_info_main.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/user_friends_spider.py" afterPath="$PROJECT_DIR$/user_friends_main.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,6 +30,7 @@
     <SUITE FILE_PATH="coverage/bangumi_spider$user_info_spider.coverage" NAME="user_info_spider Coverage Results" MODIFIED="1517540985995" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/bangumi_spider$spider_version_dao.coverage" NAME="spider_version_dao Coverage Results" MODIFIED="1517289403505" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/bangumi/spider/dao" />
     <SUITE FILE_PATH="coverage/bangumi_spider$spider_version_dao__1_.coverage" NAME="spider_version_dao (1) Coverage Results" MODIFIED="1517376837496" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/bangumi/dao" />
+    <SUITE FILE_PATH="coverage/bangumi_spider$user_friends_main.coverage" NAME="user_friends_main Coverage Results" MODIFIED="1517824489186" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/bangumi_spider$SpiderVersionDTO.coverage" NAME="SpiderVersionDTO Coverage Results" MODIFIED="1517287317034" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/bangumi/spider/dto" />
     <SUITE FILE_PATH="coverage/bangumi_spider$_pydev_execfile.coverage" NAME="_pydev_execfile Coverage Results" MODIFIED="1516773030999" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps" />
     <SUITE FILE_PATH="coverage/bangumi_spider$user_spider_version_service.coverage" NAME="user_spider_version_service Coverage Results" MODIFIED="1517461415460" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/bangumi/service" />
@@ -41,8 +42,8 @@
       <file leaf-file-name="user_friends_spider.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bangumi/spider/user_friends_spider.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="17" column="15" lean-forward="true" selection-start-line="17" selection-start-column="15" selection-end-line="17" selection-end-column="15" />
+            <state relative-caret-position="146">
+              <caret line="34" column="19" lean-forward="false" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="19" />
               <folding>
                 <element signature="e#39#52#0" expanded="true" />
               </folding>
@@ -50,239 +51,49 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user_info_spider.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bangumi/spider/user_info_spider.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="175" column="24" lean-forward="true" selection-start-line="175" selection-start-column="24" selection-end-line="175" selection-end-column="24" />
-              <folding>
-                <element signature="e#39#52#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user_info_dao.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bangumi/dao/user_info_dao.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="644">
-              <caret line="79" column="29" lean-forward="false" selection-start-line="79" selection-start-column="29" selection-end-line="79" selection-end-column="29" />
-              <folding>
-                <element signature="e#39#72#0" expanded="true" />
-                <marker date="1517540353437" expanded="true" signature="167:679" ph="select id, o... user_info" />
-                <marker date="1517540353437" expanded="true" signature="960:1629" ph="insert into user_info... " />
-                <marker date="1517540353437" expanded="true" signature="2486:3181" ph="update user_... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user_spider_version_dao.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bangumi/dao/user_spider_version_dao.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-              <folding>
-                <element signature="e#41#74#0" expanded="true" />
-                <marker date="1517540400190" expanded="true" signature="189:1012" ph="select id, o... user_spider_version" />
-                <marker date="1517540400190" expanded="true" signature="1341:2310" ph="insert into user_spider_version... " />
-                <marker date="1517540400190" expanded="true" signature="3481:4476" ph="update user_... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="spider_version_dto.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bangumi/dto/spider_version_dto.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="6" column="8" lean-forward="false" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="table_constants.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bangumi/constants/table_constants.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="11" column="17" lean-forward="true" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="表结构.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bangumi/constants/表结构.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1647">
-              <caret line="86" column="33" lean-forward="false" selection-start-line="86" selection-start-column="14" selection-end-line="86" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="url_constants.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bangumi/constants/url_constants.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user_friends_spider.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/user_friends_spider.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="410">
-              <caret line="64" column="0" lean-forward="true" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-              <folding>
-                <element signature="e#39#55#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user_info_main.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/user_info_main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="28" column="45" lean-forward="true" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
-              <folding>
-                <element signature="e#39#55#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="threading.py" pinned="false" current-in-tab="false">
-        <entry file="file://D:/Users/admin/AppData/Local/Programs/Python/Python36-32/Lib/threading.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20568">
-              <caret line="863" column="0" lean-forward="false" selection-start-line="863" selection-start-column="0" selection-end-line="863" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="codecs.py" pinned="false" current-in-tab="false">
-        <entry file="file://D:/Users/admin/AppData/Local/Programs/Python/Python36-32/Lib/codecs.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="463">
-              <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user_spider_version.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/user_spider_version.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user_spider_version_dto.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bangumi/dto/user_spider_version_dto.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="16" column="42" lean-forward="true" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user_friends_dto.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bangumi/dto/user_friends_dto.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="12" column="40" lean-forward="false" selection-start-line="12" selection-start-column="40" selection-end-line="12" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="spider_version_dao.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bangumi/dao/spider_version_dao.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-              <folding>
-                <element signature="e#39#75#0" expanded="true" />
-                <marker date="1517399626385" expanded="true" signature="185:328" ph="select id, o... user_info" />
-                <marker date="1517399626385" expanded="true" signature="185:329" ph="update spide... " />
-                <marker date="1517399626385" expanded="true" signature="640:834" ph="insert into spider_version... " />
-                <marker date="1517399626385" expanded="true" signature="1169:1395" ph="update spide... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user_info_dto.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bangumi/dto/user_info_dto.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1344">
-              <caret line="56" column="17" lean-forward="false" selection-start-line="56" selection-start-column="17" selection-end-line="56" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mysql_client.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bangumi/client/mysql_client.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="50" column="17" lean-forward="true" selection-start-line="50" selection-start-column="17" selection-end-line="50" selection-end-column="17" />
-              <folding>
-                <element signature="e#40#54#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="spider_version_service.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bangumi/service/spider_version_service.py">
+      <file leaf-file-name="user_friends_main.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/user_friends_main.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="242">
-              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+              <caret line="52" column="34" lean-forward="true" selection-start-line="52" selection-start-column="34" selection-end-line="52" selection-end-column="34" />
               <folding>
-                <element signature="e#39#72#0" expanded="true" />
+                <element signature="e#39#55#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="common_util.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bangumi/utils/common_util.py">
+      <file leaf-file-name="user_friends_service.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/bangumi/service/user_friends_service.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+            <state relative-caret-position="343">
+              <caret line="43" column="18" lean-forward="false" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
               <folding>
-                <element signature="e#0#14#0" expanded="true" />
+                <element signature="e#39#91#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="my_exception.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bangumi/utils/my_exception.py">
+      <file leaf-file-name="user_friends_dao.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bangumi/dao/user_friends_dao.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="3" column="17" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="17" />
-              <folding />
+            <state relative-caret-position="26">
+              <caret line="22" column="4" lean-forward="false" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
+              <folding>
+                <marker date="1517539629292" expanded="true" signature="174:358" ph="select id, o... user_friends" />
+                <marker date="1517539629292" expanded="true" signature="648:879" ph="insert into user_friends... " />
+                <marker date="1517539629292" expanded="true" signature="1282:1542" ph="update user_... " />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user_info_service.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bangumi/service/user_info_service.py">
+      <file leaf-file-name="user_info_main.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/user_info_main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="47" column="30" lean-forward="false" selection-start-line="47" selection-start-column="30" selection-end-line="47" selection-end-column="30" />
+            <state relative-caret-position="266">
+              <caret line="52" column="49" lean-forward="false" selection-start-line="52" selection-start-column="49" selection-end-line="52" selection-end-column="49" />
               <folding>
                 <element signature="e#39#55#0" expanded="true" />
               </folding>
@@ -293,8 +104,42 @@
       <file leaf-file-name="user_spider_version_service.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bangumi/service/user_spider_version_service.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="17" column="4" lean-forward="false" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="4" />
+            <state relative-caret-position="170">
+              <caret line="38" column="4" lean-forward="false" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="4" />
+              <folding>
+                <element signature="e#39#55#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="spider_version_service.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bangumi/service/spider_version_service.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="16" column="61" lean-forward="false" selection-start-line="16" selection-start-column="61" selection-end-line="16" selection-end-column="61" />
+              <folding>
+                <element signature="e#39#72#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user_info_dto.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bangumi/dto/user_info_dto.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="3" column="6" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user_info_service.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bangumi/service/user_info_service.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="314">
+              <caret line="45" column="45" lean-forward="false" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="45" />
               <folding>
                 <element signature="e#39#55#0" expanded="true" />
               </folding>
@@ -363,7 +208,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/bangumi/spider/users_spider/users.py" />
         <option value="$PROJECT_DIR$/bangumi/spider/users_spider/__init__.py" />
         <option value="$PROJECT_DIR$/bangumi/spider/users_spider/user_requests.py" />
         <option value="$PROJECT_DIR$/bangumi/spider/users_spider/user_message.py" />
@@ -392,7 +236,6 @@
         <option value="$PROJECT_DIR$/bangumi/service/spider_version.py" />
         <option value="$PROJECT_DIR$/bangumi/service/user_info.py" />
         <option value="$PROJECT_DIR$/bangumi/dao/spider_version_dao.py" />
-        <option value="$PROJECT_DIR$/bangumi/service/spider_version_service.py" />
         <option value="$PROJECT_DIR$/bangumi/spider/user_message.py" />
         <option value="$PROJECT_DIR$/bangumi/controller/user_spider.py" />
         <option value="$PROJECT_DIR$/bangumi/spider/user_friends_spider.py" />
@@ -408,11 +251,14 @@
         <option value="$PROJECT_DIR$/bangumi/client/mysql_client.py" />
         <option value="$PROJECT_DIR$/bangumi/constants/table_constants.py" />
         <option value="$PROJECT_DIR$/bangumi/service/user_spider_version_service.py" />
-        <option value="$PROJECT_DIR$/user_friends_spider.py" />
         <option value="$PROJECT_DIR$/bangumi/utils/my_exception.py" />
-        <option value="$PROJECT_DIR$/user_info_main.py" />
         <option value="$PROJECT_DIR$/bangumi/spider/user_info_spider.py" />
+        <option value="$PROJECT_DIR$/user_friends_spider.py" />
+        <option value="$PROJECT_DIR$/bangumi/service/spider_version_service.py" />
+        <option value="$PROJECT_DIR$/user_friends_main.py" />
+        <option value="$PROJECT_DIR$/user_info_main.py" />
         <option value="$PROJECT_DIR$/bangumi/service/user_info_service.py" />
+        <option value="$PROJECT_DIR$/bangumi/service/user_friends_service.py" />
       </list>
     </option>
   </component>
@@ -514,7 +360,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../BangumiSpider" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="user_info_spider&#9;FILE&#9;file://E:/PythonSpace/bangumi_spider/bangumi/spider/user_info_spider.py&#10;user_info_main&#9;FILE&#9;file://E:/PythonSpace/bangumi_spider/user_info_main.py&#10;user_spider_version_service&#9;FILE&#9;file://E:/PythonSpace/bangumi_spider/bangumi/service/user_spider_version_service.py&#10;user_info_service&#9;FILE&#9;file://E:/PythonSpace/bangumi_spider/bangumi/service/user_info_service.py" />
+    <property name="SearchEverywhereHistoryKey" value="user_friends_service&#9;FILE&#9;file://E:/PythonSpace/bangumi_spider/bangumi/service/user_friends_service.py&#10;user_info_spider&#9;FILE&#9;file://E:/PythonSpace/bangumi_spider/bangumi/spider/user_info_spider.py&#10;user_info_main&#9;FILE&#9;file://E:/PythonSpace/bangumi_spider/user_info_main.py&#10;user_spider_version_service&#9;FILE&#9;file://E:/PythonSpace/bangumi_spider/bangumi/service/user_spider_version_service.py&#10;user_info_service&#9;FILE&#9;file://E:/PythonSpace/bangumi_spider/bangumi/service/user_info_service.py" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -541,7 +387,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.user_info_main">
+  <component name="RunManager" selected="Python.user_friends_main">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="WIDTH" value="400" />
       <option name="HEIGHT" value="300" />
@@ -628,6 +474,24 @@
       <predefined_log_file id="idea.log" enabled="true" />
       <method />
     </configuration>
+    <configuration name="user_friends_main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="bangumi_spider" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/user_friends_main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
     <configuration name="user_friends_spider" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -641,7 +505,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="bangumi_spider" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/user_friends_spider.py" />
+      <option name="SCRIPT_NAME" value="E:\PythonSpace\bangumi_spider\user_friends_main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -700,38 +564,20 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <configuration name="user_spider_version_service" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bangumi/service" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="bangumi_spider" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bangumi/service/user_spider_version_service.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-    </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.user_spider_version_service" />
-      <item index="1" class="java.lang.String" itemvalue="Python.user_info_spider" />
-      <item index="2" class="java.lang.String" itemvalue="Python.user_friends_spider" />
-      <item index="3" class="java.lang.String" itemvalue="Python.user_info_spider (1)" />
-      <item index="4" class="java.lang.String" itemvalue="Python.user_info_main" />
+      <item index="0" class="java.lang.String" itemvalue="Python.user_info_spider" />
+      <item index="1" class="java.lang.String" itemvalue="Python.user_friends_spider" />
+      <item index="2" class="java.lang.String" itemvalue="Python.user_info_spider (1)" />
+      <item index="3" class="java.lang.String" itemvalue="Python.user_info_main" />
+      <item index="4" class="java.lang.String" itemvalue="Python.user_friends_main" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.user_info_main" />
-        <item index="1" class="java.lang.String" itemvalue="Python.user_info_spider (1)" />
-        <item index="2" class="java.lang.String" itemvalue="Python.user_info_spider" />
-        <item index="3" class="java.lang.String" itemvalue="Python.user_friends_spider" />
-        <item index="4" class="java.lang.String" itemvalue="Python.user_spider_version_service" />
+        <item index="0" class="java.lang.String" itemvalue="Python.user_friends_main" />
+        <item index="1" class="java.lang.String" itemvalue="Python.user_info_main" />
+        <item index="2" class="java.lang.String" itemvalue="Python.user_info_spider (1)" />
+        <item index="3" class="java.lang.String" itemvalue="Python.user_info_spider" />
+        <item index="4" class="java.lang.String" itemvalue="Python.user_friends_spider" />
       </list>
     </recent_temporary>
   </component>
@@ -813,6 +659,11 @@
           <line>54</line>
           <option name="timeStamp" value="118" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/user_friends_main.py</url>
+          <line>48</line>
+          <option name="timeStamp" value="141" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -821,25 +672,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="140" />
+      <option name="time" value="143" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="17" column="21" lean-forward="false" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38352">
-          <caret line="1598" column="0" lean-forward="false" selection-start-line="1598" selection-start-column="0" selection-end-line="1598" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/Users/admin/AppData/Local/Programs/Python/Python36-32/Lib/codecs.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7392">
@@ -1017,14 +854,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bangumi/dto/spider_version_dto.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="6" column="8" lean-forward="false" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bangumi/utils/common_util.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
@@ -1032,30 +861,6 @@
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bangumi/dto/user_info_dto.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1344">
-          <caret line="56" column="17" lean-forward="false" selection-start-line="56" selection-start-column="17" selection-end-line="56" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Users/admin/AppData/Local/Programs/Python/Python36-32/Lib/threading.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20568">
-          <caret line="863" column="0" lean-forward="false" selection-start-line="863" selection-start-column="0" selection-end-line="863" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bangumi/dto/user_spider_version_dto.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="16" column="42" lean-forward="true" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1073,19 +878,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bangumi/dao/user_info_dao.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="79" column="29" lean-forward="false" selection-start-line="79" selection-start-column="29" selection-end-line="79" selection-end-column="29" />
-          <folding>
-            <element signature="e#39#72#0" expanded="true" />
-            <marker date="1517540353437" expanded="true" signature="167:679" ph="select id, o... user_info" />
-            <marker date="1517540353437" expanded="true" signature="960:1629" ph="insert into user_info... " />
-            <marker date="1517540353437" expanded="true" signature="2486:3181" ph="update user_... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/user_spider_version.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="48">
@@ -1094,46 +886,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Users/admin/AppData/Local/Programs/Python/Python36-32/Lib/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bangumi/spider/user_friends_spider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="17" column="15" lean-forward="true" selection-start-line="17" selection-start-column="15" selection-end-line="17" selection-end-column="15" />
-          <folding>
-            <element signature="e#39#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bangumi/constants/表结构.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1647">
           <caret line="86" column="33" lean-forward="false" selection-start-line="86" selection-start-column="14" selection-end-line="86" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bangumi/service/spider_version_service.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding>
-            <element signature="e#39#72#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bangumi/constants/url_constants.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1169,33 +925,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bangumi/service/user_info_service.py">
+    <entry file="file://$PROJECT_DIR$/bangumi/spider/user_info_spider.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="47" column="30" lean-forward="false" selection-start-line="47" selection-start-column="30" selection-end-line="47" selection-end-column="30" />
+        <state relative-caret-position="253">
+          <caret line="175" column="24" lean-forward="true" selection-start-line="175" selection-start-column="24" selection-end-line="175" selection-end-column="24" />
           <folding>
-            <element signature="e#39#55#0" expanded="true" />
+            <element signature="e#39#52#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bangumi/service/user_spider_version_service.py">
+    <entry file="file://$PROJECT_DIR$/bangumi/constants/url_constants.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="17" column="4" lean-forward="false" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="4" />
-          <folding>
-            <element signature="e#39#55#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user_friends_spider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="64" column="0" lean-forward="true" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-          <folding>
-            <element signature="e#39#55#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="600">
+          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1207,22 +951,137 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bangumi/spider/user_info_spider.py">
+    <entry file="file://$PROJECT_DIR$/bangumi/dto/spider_version_dto.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="175" column="24" lean-forward="true" selection-start-line="175" selection-start-column="24" selection-end-line="175" selection-end-column="24" />
+        <state relative-caret-position="144">
+          <caret line="6" column="8" lean-forward="false" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bangumi/dao/user_info_dao.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="644">
+          <caret line="79" column="29" lean-forward="false" selection-start-line="79" selection-start-column="29" selection-end-line="79" selection-end-column="29" />
           <folding>
-            <element signature="e#39#52#0" expanded="true" />
+            <element signature="e#39#72#0" expanded="true" />
+            <marker date="1517540353437" expanded="true" signature="167:679" ph="select id, o... user_info" />
+            <marker date="1517540353437" expanded="true" signature="960:1629" ph="insert into user_info... " />
+            <marker date="1517540353437" expanded="true" signature="2486:3181" ph="update user_... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bangumi/dto/user_spider_version_dto.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="16" column="42" lean-forward="true" selection-start-line="16" selection-start-column="42" selection-end-line="16" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Users/admin/AppData/Local/Programs/Python/Python36-32/Lib/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="463">
+          <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Users/admin/AppData/Local/Programs/Python/Python36-32/Lib/threading.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="394">
+          <caret line="863" column="0" lean-forward="false" selection-start-line="863" selection-start-column="0" selection-end-line="863" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bangumi/dto/user_info_dto.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="3" column="6" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bangumi/service/user_spider_version_service.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="38" column="4" lean-forward="false" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="4" />
+          <folding>
+            <element signature="e#39#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bangumi/service/spider_version_service.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="16" column="61" lean-forward="false" selection-start-line="16" selection-start-column="61" selection-end-line="16" selection-end-column="61" />
+          <folding>
+            <element signature="e#39#72#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/user_info_main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="28" column="45" lean-forward="true" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+        <state relative-caret-position="266">
+          <caret line="52" column="49" lean-forward="false" selection-start-line="52" selection-start-column="49" selection-end-line="52" selection-end-column="49" />
           <folding>
             <element signature="e#39#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bangumi/spider/user_friends_spider.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="34" column="19" lean-forward="false" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="19" />
+          <folding>
+            <element signature="e#39#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user_friends_main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="52" column="34" lean-forward="true" selection-start-line="52" selection-start-column="34" selection-end-line="52" selection-end-column="34" />
+          <folding>
+            <element signature="e#39#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bangumi/service/user_info_service.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="45" column="45" lean-forward="false" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="45" />
+          <folding>
+            <element signature="e#39#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bangumi/dao/user_friends_dao.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="22" column="4" lean-forward="false" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
+          <folding>
+            <marker date="1517539629292" expanded="true" signature="174:358" ph="select id, o... user_friends" />
+            <marker date="1517539629292" expanded="true" signature="648:879" ph="insert into user_friends... " />
+            <marker date="1517539629292" expanded="true" signature="1282:1542" ph="update user_... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bangumi/service/user_friends_service.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="43" column="18" lean-forward="false" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
+          <folding>
+            <element signature="e#39#91#0" expanded="true" />
           </folding>
         </state>
       </provider>

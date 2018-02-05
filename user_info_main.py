@@ -49,19 +49,9 @@ def all_user_info(svd):
                 FLAG = False
 
             for usvDto in user_spider_version_dtos:
-                uids = user_info_service.find_by_code(conn, usvDto.user_code)
-                if uids is None or len(uids)==0:
-                    log = "version:{}, user:{} is not existed in user_info".format(svd.spider_version, usvDto.user_code)
-                    print(log)
-                    user_spider_version_service.unable_user_info_version(conn, usvDto, svd.spider_version, log)
-                    continue
-                elif len(uids) > 1:
-                    log = "version:{}, user:{} is more than 1 in user_info".format(svd.spider_version, usvDto.user_code)
-                    print(log)
-                    user_spider_version_service.unable_user_info_version(conn, usvDto, svd.spider_version, log)
-                    continue
                 try:
-                    update_user_info(conn, uids[0], usvDto, svd.spider_version)
+                    uid = user_info_service.find_by_code(conn, usvDto.user_code)
+                    update_user_info(conn, uid, usvDto, svd.spider_version)
                 except MyException as e:
                     log = e
                     user_spider_version_service.unable_user_info_version(conn, usvDto, svd.spider_version, log)

@@ -2,6 +2,8 @@
 # author: hoicai
 import traceback
 
+from bangumi.service import user_spider_version_service
+from bangumi.utils import my_exception
 from ..constants import table_constants
 from ..constants import url_constants
 from ..dao import user_info_dao
@@ -20,7 +22,15 @@ def find_by_spider_version(conn, svd: spider_version_dto.SpiderVersionDTO, limit
 def find_by_code(conn, code):
     sql_find_by_code = "code = '{}' and status = '{}'".format(code, table_constants.ENABLE)
     uids = user_info_dao.user_info_select(conn, sql_find_by_code)
-    return uids
+    if uids is None or len(uids) == 0:
+        log = "user_code:{} is not existed in user_info".format(code)
+        print(log)
+        raise my_exception.MyException(log)
+    elif len(uids) > 1:
+        log = " user_code:{} is more than 1 in user_info".format(code)
+        print(log)
+        raise my_exception.MyException(log)
+    return uids[0]
 
 
 def create(conn, uid: user_info_dto.UserInfoDTO):
@@ -84,7 +94,7 @@ def spider_update(conn, uid: user_info_dto.UserInfoDTO, uid_update:user_info_dto
 
 
 
-
+'''
 def reduce_active_degree(conn, uid: user_info_dto.UserInfoDTO):
     flag = False
     if uid.active_degree > 0:
@@ -94,3 +104,4 @@ def reduce_active_degree(conn, uid: user_info_dto.UserInfoDTO):
             flag = user_info_dao.user_info_update(conn, uid)
         except Exception:
             print(traceback.format_exc())
+'''

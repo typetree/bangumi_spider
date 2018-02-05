@@ -14,7 +14,7 @@ def get_spider_version(conn, version, status):
     spider_version_data = spider_version_dao.spider_version_select(conn, where_sql)
 
     if spider_version_data == None or len(spider_version_data) == 0:
-        raise my_exception.MyException("select spider_version_data is none ")
+        raise my_exception.MyException("select spider_version_data is none where_sql:{}".format(where_sql))
 
     return spider_version_data
 

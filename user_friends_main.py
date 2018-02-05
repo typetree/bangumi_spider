@@ -3,12 +3,15 @@
 import threading
 import traceback
 
-from bangumi.service import user_info_service, user_spider_version_service
+from bangumi.dto import user_spider_version_dto, user_info_dto
+from bangumi.service import user_info_service, user_spider_version_service, user_friends_service
 from bangumi.spider import user_friends_spider
 from bangumi.client import mysql_client
 from bangumi.constants import table_constants
 from bangumi.service import spider_version_service
 from bangumi.utils import common_util
+from bangumi.utils.my_exception import MyException
+
 
 def all_friends_spider(svd):
     try:
@@ -24,41 +27,39 @@ def all_friends_spider(svd):
                 FLAG = False
 
             for usvDto in user_spider_version_dtos:
-                uids = user_info_service.find_by_code(conn, usvDto.user_code)
-                if uids is None or len(uids)==0:
-                    log = "version:{}, user:{} is not existed in user_info".format(svd.spider_version, usvDto.user_code)
-                    print(log)
-                    user_spider_version_service.unable_user_info_version(conn, usvDto, svd.spider_version, log)
-                    continue
-                elif len(uids) > 1:
-                    log = "version:{}, user:{} is more than 1 in user_info".format(svd.spider_version, usvDto.user_code)
-                    print(log)
-                    user_spider_version_service.unable_user_info_version(conn, usvDto, svd.spider_version, log)
-                    continue
                 try:
-                    update_user_frinds(conn, uids[0])
-                except:
-                    log = traceback.format_exc()
-                    user_spider_version_service.unable_user_info_version(conn, usvDto, svd.spider_version, log)
-
-                user_info_service.update_spider_version(conn, uid[0], svd)
+                    uid = user_info_service.find_by_code(conn, usvDto.user_code)
+                    update_user_frinds(conn, uid, usvDto, svd.spider_version)
+                except MyException as e:
+                    log = e
+                    user_spider_version_service.unable_user_friends_version(conn, usvDto, svd.spider_version, log)
+                except Exception:
+                    print(traceback.format_exc())
     except Exception as e:
         print(traceback.format_exc())
     finally:
         conn.close()
 
 
-def update_user_frinds(conn, uid):
+def update_user_frinds(conn, uid: user_info_dto.UserInfoDTO,
+                       usvd: user_spider_version_dto.UserSpiderVersionDTO, svd):
     print("find users' friends, uid:{}".format(uid.code))
     # 查找好友页面，获取好友用户信
-    friends = user_friends_spider.find_friends(uid.code)
-    user_friends_fingerprint = common_util.hashlib_md5(friends)
+    friends_update = user_friends_spider.find_friends(uid.code)
+    user_friends_fingerprint = common_util.hashlib_md5(friends_update)
+    active_degree = usvd.user_friends_active_degree
+    if usvd.user_friends_fingerprint != user_friends_fingerprint:
+        print("{}:{} friends update start".format(uid.code, uid.name))
+        user_friends_service.spider_update(conn, uid, friends_update)
+        usvd.user_friends_fingerprint = user_friends_fingerprint
+        active_degree = uid.active_degree + 1
+    elif uid.active_degree > 0:
+        active_degree = uid.active_degree - 1
 
-
-    for friend in friends:
-        user_info_dto = user_info_service.find_by_code(conn, friend.code)
-        if user_info_dto is None or len(user_info_dto) == 0:
-            user_info_service.create(conn, friend)
+    usvd.user_friends_version = svd
+    usvd.user_friends_active_degree = active_degree
+    print("{}:{} friends update finish, version:{}".format(uid.code, uid.name, svd))
+    user_spider_version_service.update_version(conn, usvd)
 
 
 if __name__ == "__main__":
@@ -75,6 +76,6 @@ if __name__ == "__main__":
         threading.Thread(target=all_friends_spider, args=(svd,)).start()
 
     except Exception as e:
+        print(traceback.format_exc())
         conn.close()
-        print(e)
 
