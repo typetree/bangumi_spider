@@ -9,6 +9,7 @@ from bangumi.dto import user_info_dto, user_spider_version_dto
 from bangumi.service import spider_version_service, user_info_service, user_spider_version_service
 from bangumi.spider import user_info_spider
 from bangumi.utils import common_util, my_exception
+from bangumi.utils.my_exception import MyException
 
 
 def update_user_info(conn, uid: user_info_dto.UserInfoDTO,
@@ -61,9 +62,12 @@ def all_user_info(svd):
                     continue
                 try:
                     update_user_info(conn, uids[0], usvDto, svd.spider_version)
-                except:
-                    log = traceback.format_exc()
+                except MyException as e:
+                    log = e
                     user_spider_version_service.unable_user_info_version(conn, usvDto, svd.spider_version, log)
+                except Exception:
+                    print(traceback.format_exc())
+
     except Exception:
         print(traceback.format_exc())
     finally:
@@ -76,7 +80,7 @@ if __name__ == "__main__":
         conn = mysql_client.get_connect()
 
         spider_version_data = spider_version_service.get_spider_version(
-            conn, 'user_info', table_constants.SPIDER_VERSION_STATUS_DOING)
+            conn, table_constants.TABLE_USER_INFO, table_constants.SPIDER_VERSION_STATUS_DOING)
         conn.close()
 
         svd = spider_version_data[0]

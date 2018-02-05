@@ -11,3 +11,9 @@ SPIDER_VERSION_STATUS_FINISH = 'FINISH'
 ENABLE = 'ENABLE'
 UNABLE = 'UNABLE'
 
+
+# 表名
+TABLE_SPIDER_VERSION = 'spider_version'
+TABLE_USER_FRIENDS = 'user_friends'
+TABLE_USER_INFO = 'user_info'
+TABLE_USER_SPIDER_VERSION = 'user_spider_version'

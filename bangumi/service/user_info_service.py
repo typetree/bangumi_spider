@@ -45,6 +45,7 @@ def update_spider_version(conn, uid: user_info_dto.UserInfoDTO, svd: spider_vers
 def spider_update(conn, uid: user_info_dto.UserInfoDTO, uid_update:user_info_dto.UserInfoDTO):
 
     uid.name = uid_update.name
+    uid.code = uid_update.code
     uid.profile_photo = uid_update.profile_photo
     uid.bangumi_user_id = uid_update.bangumi_user_id
     uid.join_time = uid_update.join_time

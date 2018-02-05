@@ -38,10 +38,6 @@ def get_user_info(UserCode):
     user_code = soup.select('#headerProfile > div > div.headerContainer > h1 > div.inner > small')[
                     0].get_text()[1:]
 
-    if user_code != UserCode:
-        raise my_exception.MyException("spider user homepage is fail,user_code({}) != UserCode({})"
-                                       .format(user_code, UserCode))
-
     photo_style = soup.select("#headerProfile > div > div.headerContainer > h1 > div.headerAvatar > a > span")[0]\
         .get("style")
     user_profile_photo = photo_style[photo_style.find("'")+1: photo_style.rfind("'")]
@@ -49,6 +45,11 @@ def get_user_info(UserCode):
     user_bangumi_user_id = user_profile_photo[user_profile_photo.rfind("/")+1: user_profile_photo.rfind(".")]
     if user_bangumi_user_id == 'icon':
         user_bangumi_user_id = UserCode
+
+    # 改名用户不抛异常。
+    if user_code != UserCode and user_bangumi_user_id != UserCode:
+        raise my_exception.MyException("spider user homepage is fail,user_code({}) != UserCode({})"
+                                       .format(user_code, UserCode))
 
     user_join_time = soup.select('span.tip')[0].get_text().split(' ')[0]
 

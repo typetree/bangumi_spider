@@ -29,6 +29,12 @@ def unable_user_info_version(conn, usvDTO: user_spider_version_dto.UserSpiderVer
         except Exception:
             print(traceback.format_exc())
 
+def find_by_user_friends_version(conn, svd: user_spider_version_dto.UserSpiderVersionDTO, limitNum=10):
+    sql_find_by_user_friends_version = "user_friends_version != '{}' and status = '{}' and user_friends_active_degree >= '{}' LIMIT 0,{}" \
+        .format(svd.spider_version, 'ENABLE', str(svd.active_degree), limitNum)
+    uids = user_spider_version_dao.user_spider_version_select(conn, sql_find_by_user_friends_version)
+    return uids
+
 
 def update_version(conn, usvDTO: user_spider_version_dto.UserSpiderVersionDTO):
     flag = False
