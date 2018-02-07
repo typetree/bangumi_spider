@@ -8,16 +8,9 @@ from ..dao import user_spider_version_dao
 from ..dto import user_spider_version_dto
 
 
-def find_version(conn, svd: user_spider_version_dto.UserSpiderVersionDTO, limitNum=10):
-    sql = "user_info_version != '{}' and status = '{}' and user_info_active_degree >= '{}' LIMIT 0,{}" \
-        .format(svd.spider_version, 'ENABLE', str(svd.active_degree), limitNum)
-    uids = user_spider_version_dao.user_spider_version_select(conn, sql)
-    return uids
-
-
-def find_by_user_friends_version(conn, svd: user_spider_version_dto.UserSpiderVersionDTO, limitNum=10):
-    sql = "user_friends_version != '{}' and status = '{}' and user_friends_active_degree >= '{}' LIMIT 0,{}" \
-        .format(svd.spider_version, 'ENABLE', str(svd.active_degree), limitNum)
+def find_version(conn, TABLE_NAME, svd: user_spider_version_dto.UserSpiderVersionDTO, limitNum=10):
+    sql = "{}_version != '{}' and status = '{}' and user_info_active_degree >= '{}' LIMIT 0,{}" \
+        .format(TABLE_NAME, svd.spider_version, 'ENABLE', str(svd.active_degree), limitNum)
     uids = user_spider_version_dao.user_spider_version_select(conn, sql)
     return uids
 

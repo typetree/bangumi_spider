@@ -21,8 +21,7 @@ def spider_version_threading(CATEGORY, TABLE_NAME, TARGET_METHOD):
         conn.close()
 
         svd = spider_version_data[0]
-
-        threading.Thread(target=spider_do, args=(CATEGORY, TABLE_NAME, svd, TARGET_METHOD,)).start()
+        spider_do(CATEGORY, TABLE_NAME, svd, TARGET_METHOD)
     except MyException as e:
         print(e.message)
     except Exception:
@@ -37,28 +36,44 @@ def spider_do(CATEGORY, TABLE_NAME, svd, TARGET_METHOD):
         FLAG = True
         while FLAG:
             # 从用户表中取出非该时间戳,且活跃度大于等于需求的用户信息
-            category_spider_version_dtos = strategy_factory.find_category_spider_version_method(CATEGORY)(conn, svd, 100)
+            category_spider_version_dtos = strategy_factory.find_category_spider_version_method(CATEGORY)(conn,TABLE_NAME, svd, 10)
 
             # 如果找不到，更新爬虫版本状态为完成，结束循环
             if category_spider_version_dtos is None or len(category_spider_version_dtos) == 0:
                 spider_version_service.finish_spider_version(conn, svd)
                 FLAG = False
+
+            thread_list = []
             for csvDto in category_spider_version_dtos:
-                try:
+                t = threading.Thread(
+                    target=threading_process,
+                    args=(CATEGORY, TARGET_METHOD, TABLE_NAME, csvDto, svd.spider_version,))
+                thread_list.append(t)
 
-                    csvd = strategy_factory.proxy_target_method(CATEGORY, TARGET_METHOD,
-                                        conn, TABLE_NAME, csvDto, svd.spider_version)
+            for t in thread_list:
+                t.start()
+            for t in thread_list:
+                t.join()
 
-                    strategy_factory.update_category_spider_version_method(CATEGORY)(conn, csvd)
-
-                except MyException as e:
-                    strategy_factory.unable_category_spider_version_method(CATEGORY)(conn, TABLE_NAME, csvDto, svd.spider_version, e.message)
-                except Exception:
-                    log = traceback.format_exc()
-                    print(log)
-                    strategy_factory.unable_category_spider_version_method(CATEGORY)(conn, TABLE_NAME, csvDto, svd.spider_version, log)
     except Exception:
         print(traceback.format_exc())
+    finally:
+        conn.close()
+
+
+def threading_process(CATEGORY, TARGET_METHOD, TABLE_NAME, csvDto, spider_version):
+    try:
+        conn = mysql_client.get_connect()
+        csvd = strategy_factory.proxy_target_method(CATEGORY, TARGET_METHOD,
+                                                    conn, TABLE_NAME, csvDto, spider_version)
+
+        strategy_factory.update_category_spider_version_method(CATEGORY)(conn, csvd)
+    except MyException as e:
+        strategy_factory.unable_category_spider_version_method(CATEGORY)(conn, TABLE_NAME, csvDto, spider_version, e.message)
+    except Exception:
+        log = traceback.format_exc()
+        print(log)
+        strategy_factory.unable_category_spider_version_method(CATEGORY)(conn, TABLE_NAME, csvDto, spider_version, log)
     finally:
         conn.close()
 

@@ -14,6 +14,7 @@ def find_friends_by_user_id(conn, user_id):
 
 
 def create_by_user_and_friend(conn, uid: user_info_dto.UserInfoDTO, friend: user_info_dto.UserInfoDTO):
+    print("create_friends user:{} friend:{}".format(uid.code, friend.code))
     ufd = user_friends_dto.UserFriendsDTO()
     ufd.optimistic = 0
     ufd.user_id = uid.id
