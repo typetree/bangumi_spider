@@ -34,7 +34,12 @@ def get_user_soup(UserCode):
 
 def get_user_info(UserCode):
     soup = get_user_soup(UserCode)
-    user_name = soup.select('#headerProfile > div > div.headerContainer > h1 > div.inner > a')[0].get_text()
+    user_name_list = soup.select('#headerProfile > div > div.headerContainer > h1 > div.inner > a')
+
+    if len(user_name_list) == 0:
+        raise my_exception.BreakException("user_info is not found, user_code:{}".format(UserCode))
+
+    user_name = user_name_list[0].get_text()
     user_code = soup.select('#headerProfile > div > div.headerContainer > h1 > div.inner > small')[
                     0].get_text()[1:]
 

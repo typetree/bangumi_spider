@@ -1,9 +1,9 @@
 # *_*coding:utf-8 *_*
 # author: hoicai
-from bangumi.dto import user_spider_version_dto
-from bangumi.service import user_spider_version_service, user_info_service, user_friends_service
-from bangumi.constants import table_constants
-from bangumi.utils import my_exception, base_util
+from ..dto import user_spider_version_dto
+from ..service import user_spider_version_service, user_info_service, user_friends_service
+from ..constants import table_constants
+from ..utils import my_exception, base_util
 
 
 def find_category_spider_version_method(CATEGORY):
