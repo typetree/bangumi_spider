@@ -4,7 +4,7 @@ from bangumi.constants.table_constants import ENABLE
 from bangumi.dao import user_friends_dao
 from bangumi.dto import user_friends_dto, user_info_dto
 from bangumi.service import user_info_service
-from bangumi.utils import common_util
+from bangumi.utils import common_util, my_exception
 
 
 def find_friends_by_user_id(conn, user_id):
@@ -46,7 +46,12 @@ def spider_update(conn, uid: user_info_dto.UserInfoDTO, friends_update: user_inf
         if friend.code in map:
             map.pop(friend.code)
         else:
-            friend_dto = user_info_service.find_by_code(conn, friend.code)
+            try:
+                friend_dto = user_info_service.find_by_code(conn, friend.code)
+            except my_exception.MyException as e:
+                if e.message.find("not existed"):
+                    user_info_service.create(conn, friend)
+
             friend.id = friend_dto.id
             create_by_user_and_friend(conn, uid, friend)
 
