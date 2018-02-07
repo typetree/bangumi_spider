@@ -1,8 +1,6 @@
 # *_*coding:utf-8 *_*
 # author: hoicai
-import traceback
 
-from bangumi.service import user_spider_version_service
 from bangumi.utils import my_exception
 from ..constants import table_constants
 from ..constants import url_constants

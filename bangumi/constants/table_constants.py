@@ -12,6 +12,9 @@ ENABLE = 'ENABLE'
 UNABLE = 'UNABLE'
 
 
+# 分类
+CATEGORY_USER = 'USER'
+
 # 表名
 TABLE_SPIDER_VERSION = 'spider_version'
 TABLE_USER_FRIENDS = 'user_friends'

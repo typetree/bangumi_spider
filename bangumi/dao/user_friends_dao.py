@@ -20,7 +20,7 @@ def user_friends_select(conn, where_sql):
     return uids
 
 
-def user_friends_insert(conn, dto: user_friends_dto.UserFriends):
+def user_friends_insert(conn, dto: user_friends_dto.UserFriendsDTO):
     insert_sql = """ insert into user_friends(
 		optimistic, user_id, user_code, user_name, friend_user_id, 
 		friend_user_code, friend_user_name, is_friend, status, create_time, 
@@ -38,7 +38,7 @@ def user_friends_insert(conn, dto: user_friends_dto.UserFriends):
     return flag
 
 
-def user_friends_update(conn, dto: user_friends_dto.UserFriends):
+def user_friends_update(conn, dto: user_friends_dto.UserFriendsDTO):
     update_sql = """
 		update user_friends set optimistic = optimistic + 1,
 		user_id= %s, user_code= %s, user_name= %s, friend_user_id= %s, friend_user_code= %s, 

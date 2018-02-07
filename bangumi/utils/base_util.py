@@ -8,12 +8,11 @@ from bangumi.factory import strategy_factory
 from ..client import mysql_client
 from ..constants import table_constants
 from ..service import spider_version_service
-from ..service import user_spider_version_service
 from ..utils import common_util
 from ..utils.my_exception import MyException
 
 
-def spider_version_threading(TABLE_NAME, TARGET_METHOD):
+def spider_version_threading(CATEGORY, TABLE_NAME, TARGET_METHOD):
     try:
         conn = mysql_client.get_connect()
 
@@ -23,22 +22,22 @@ def spider_version_threading(TABLE_NAME, TARGET_METHOD):
 
         svd = spider_version_data[0]
 
-        EXCEPT_METHOD = strategy_factory.spider_version_unable_factory(TABLE_NAME)
-        threading.Thread(target=spider_do, args=(TABLE_NAME, svd, TARGET_METHOD, EXCEPT_METHOD,)).start()
+        threading.Thread(target=spider_do, args=(CATEGORY, TABLE_NAME, svd, TARGET_METHOD,)).start()
     except MyException as e:
         print(e.message)
     except Exception:
         print(traceback.format_exc())
         conn.close()
 
-def spider_do(TABLE_NAME, svd, TARGET_METHOD, EXCEPT_METHOD):
+
+def spider_do(CATEGORY, TABLE_NAME, svd, TARGET_METHOD):
     try:
         conn = mysql_client.get_connect()
 
         FLAG = True
         while FLAG:
             # 从用户表中取出非该时间戳,且活跃度大于等于需求的用户信息
-            category_spider_version_dtos = strategy_factory.find_category_spider_version_method(TABLE_NAME)(conn, svd, 100)
+            category_spider_version_dtos = strategy_factory.find_category_spider_version_method(CATEGORY)(conn, svd, 100)
 
             # 如果找不到，更新爬虫版本状态为完成，结束循环
             if category_spider_version_dtos is None or len(category_spider_version_dtos) == 0:
@@ -46,16 +45,18 @@ def spider_do(TABLE_NAME, svd, TARGET_METHOD, EXCEPT_METHOD):
                 FLAG = False
             for csvDto in category_spider_version_dtos:
                 try:
-                    csvd = TARGET_METHOD(conn, TABLE_NAME, csvDto, svd.spider_version)
 
-                    strategy_factory.update_category_spider_version_method(TABLE_NAME)(conn, csvd)
+                    csvd = strategy_factory.proxy_target_method(CATEGORY, TARGET_METHOD,
+                                        conn, TABLE_NAME, csvDto, svd.spider_version)
+
+                    strategy_factory.update_category_spider_version_method(CATEGORY)(conn, csvd)
 
                 except MyException as e:
-                    EXCEPT_METHOD(conn, csvDto, svd.spider_version, e.message)
+                    strategy_factory.unable_category_spider_version_method(CATEGORY)(conn, TABLE_NAME, csvDto, svd.spider_version, e.message)
                 except Exception:
                     log = traceback.format_exc()
                     print(log)
-                    EXCEPT_METHOD(conn, csvDto, svd.spider_version, log)
+                    strategy_factory.unable_category_spider_version_method(CATEGORY)(conn, TABLE_NAME, csvDto, svd.spider_version, log)
     except Exception:
         print(traceback.format_exc())
     finally:
