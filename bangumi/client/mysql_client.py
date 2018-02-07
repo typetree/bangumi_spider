@@ -17,7 +17,7 @@ def get_connect():
     return conn
 
 
-def execute_sql(conn, sql, params):
+def execute_sql(conn, sql, params=None):
 
     log = ''
     cursor = conn.cursor()

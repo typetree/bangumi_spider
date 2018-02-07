@@ -28,17 +28,33 @@ def create_by_user_and_friend(conn, uid: user_info_dto.UserInfoDTO, friend: user
     user_friends_dao.user_friends_insert(conn, ufd)
 
 
+def unable_by_ids(conn, friend_user_ids):
+    ids = ",".join(friend_user_ids)
+    time = common_util.get_now_time()
+    user_friends_dao.unable_by_ids(conn, time, ids)
+
+
 def spider_update(conn, uid: user_info_dto.UserInfoDTO, friends_update: user_info_dto.UserInfoDTO):
 
     # 找到已有的好友
     user_friends_dtos = find_friends_by_user_id(conn, uid.id)
-    map = dict([(friend_user_id, id) for friend_user_id, id in user_friends_dtos.iteritems()])
+    map = dict([(user_friends_dto.friend_user_code, user_friends_dto.friend_user_id) for user_friends_dto in user_friends_dtos])
 
     for friend in friends_update:
-        if friend.id in map:
-            map.remove(friend.id)
+        # 已经是好友，剔除dict
+        if friend.code in map:
+            map.pop(friend.code)
         else:
             friend_dto = user_info_service.find_by_code(conn, friend.code)
+            friend.id = friend_dto.id
             create_by_user_and_friend(conn, uid, friend)
 
-    unable_by_ids()
+    if len(map) != 0:
+        friend_user_ids = []
+        for v in map.items():
+            friend_user_ids.append(v)
+
+        unable_by_ids(conn, friend_user_ids)
+
+    uid.friends_num = len(friends_update)
+    user_info_service.update_spider_version(conn, uid)

@@ -44,9 +44,8 @@ def create(conn, uid: user_info_dto.UserInfoDTO):
         flag = user_info_dao.user_info_insert(conn, uid)
 
 
-def update_spider_version(conn, uid: user_info_dto.UserInfoDTO, svd: spider_version_dto.SpiderVersionDTO):
+def update_spider_version(conn, uid: user_info_dto.UserInfoDTO):
 
-    uid.spider_version = svd.spider_version
     user_info_dao.user_info_update(conn, uid)
 
 

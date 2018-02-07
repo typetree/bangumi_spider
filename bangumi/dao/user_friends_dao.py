@@ -15,7 +15,7 @@ def user_friends_select(conn, where_sql):
     rows = mysql_client.execute_select_sql(conn, select_sql)
     uids =[]
     for row in rows:
-        uid = user_friends_dto.UserFriends(row)
+        uid = user_friends_dto.UserFriendsDTO(row)
         uids.append(uid)
     return uids
 
@@ -51,3 +51,11 @@ def user_friends_update(conn, dto: user_friends_dto.UserFriendsDTO):
     )
     flag = mysql_client.execute_sql(conn, update_sql, params)
     return flag
+
+
+def unable_by_ids(conn, time, ids):
+    sql = """
+        update user_friends set optimistic = optimistic + 1, status = %s, update_time = '{}'
+        where id in ({})
+    """.format(time, ids)
+    return mysql_client.execute_sql(conn, sql)

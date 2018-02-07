@@ -42,7 +42,7 @@ def proxy_target_method(CATEGORY, TARGET_METHOD,
 
         usvd = base_util.compare_and_update(usvd, TABLE_NAME, svd, conn, uid, update_data)
 
-        print("{}:{} update {} finish, version:{}".format(uid.code, update_data.name, TABLE_NAME, svd))
+        print("{}:{} update {} finish, version:{}".format(uid.code, uid.name, TABLE_NAME, svd))
         return usvd
     else:
         raise my_exception.MyException("proxy_target_method no found")
