@@ -12,7 +12,7 @@ from bangumi.utils import my_exception
 class user_info_add_main:
 
     def __init__(self):
-        self._result = None
+        self._result = 0
 
 
     def get_result(self):
@@ -32,12 +32,12 @@ class user_info_add_main:
             if e.message.find("not existed"):
                 update_data.bangumi_user_id = bangumi_id
                 user_info_service.create(conn, update_data)
-                user_spider_version_service.create_by_user_info_dto(conn, user_info_dto)
+                user_spider_version_service.create_by_user_info_dto(conn, update_data)
             if e.message.find("spider user homepage is fail"):
                 print("find end, bangumi_id:{}".format(bangumi_id))
         except my_exception.BreakException as e:
             print(e.message)
-            self._result = False
+            self._result += 1
         except Exception:
             print(traceback.format_exc())
         finally:
@@ -47,11 +47,12 @@ class user_info_add_main:
 
 if __name__ == "__main__":
 
-    bangumi_id = 1
+    bangumi_id = 401219
     target = bangumi_id + 15
 
     thread_list = []
-    while True:
+    Flag = True
+    while Flag:
         task = user_info_add_main()
         t = threading.Thread(target=task.update_bangumi, args=(bangumi_id,))
         thread_list.append(t)
@@ -66,8 +67,5 @@ if __name__ == "__main__":
             target = bangumi_id + 15
             thread_list = []
 
-            if task.get_result() == False:
-                stop_point += 1
-
-        if stop_point == 15:
-            break
+        if bangumi_id == 402000:
+            Flag = False

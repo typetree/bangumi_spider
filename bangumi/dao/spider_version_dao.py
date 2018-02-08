@@ -31,8 +31,8 @@ def spider_version_insert(conn, svd: spider_version_dto):
         svd.optimistic, svd.version, svd.spider_version, svd.active_degree,
         svd.log, svd.status, svd.create_time, svd.update_time
     )
-    flag = mysql_client.execute_sql(conn, insert_sql, params)
-    return flag
+    id = mysql_client.execute_sql(conn, insert_sql, params)
+    return id
 
 
 def spider_version_update(conn, svd: spider_version_dto):

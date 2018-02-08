@@ -29,6 +29,7 @@ def execute_sql(conn, sql, params=None):
             raise my_exception.MyException(log)
         try:
             cursor.execute(sql, params)
+            id = int(conn.insert_id())
             conn.commit()
 
             # print("操作成功,sql:{},params:{}", sql, params)
@@ -38,7 +39,7 @@ def execute_sql(conn, sql, params=None):
             print(log)
             retry_num -= 1
             time.sleep(1)
-    return True
+    return id
 
 
 
