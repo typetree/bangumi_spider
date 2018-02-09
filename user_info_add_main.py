@@ -31,7 +31,7 @@ class user_info_add_main:
         except my_exception.MyException as e:
             if e.message.find("not existed"):
                 update_data.bangumi_user_id = bangumi_id
-                user_info_service.create(conn, update_data)
+                update_data.id = user_info_service.create(conn, update_data)
                 user_spider_version_service.create_by_user_info_dto(conn, update_data)
             if e.message.find("spider user homepage is fail"):
                 print("find end, bangumi_id:{}".format(bangumi_id))

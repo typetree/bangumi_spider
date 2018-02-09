@@ -39,7 +39,8 @@ def create(conn, uid: user_info_dto.UserInfoDTO):
     uid.active_degree = 100
     uid.update_time = common_util.get_now_time()
     uid.create_time = common_util.get_now_time()
-    user_info_dao.user_info_insert(conn, uid)
+    id = user_info_dao.user_info_insert(conn, uid)
+    return id
 
 
 def update_spider_version(conn, uid: user_info_dto.UserInfoDTO):

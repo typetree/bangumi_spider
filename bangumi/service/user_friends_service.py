@@ -48,12 +48,12 @@ def spider_update(conn, uid: user_info_dto.UserInfoDTO, friends_update: user_inf
         else:
             try:
                 friend_dto = user_info_service.find_by_code(conn, friend.code)
+                friend.id = friend_dto.id
+                create_by_user_and_friend(conn, uid, friend)
             except my_exception.MyException as e:
                 if e.message.find("not existed"):
                     user_info_service.create(conn, friend)
 
-            friend.id = friend_dto.id
-            create_by_user_and_friend(conn, uid, friend)
 
     if len(map) != 0:
         friend_user_ids = []

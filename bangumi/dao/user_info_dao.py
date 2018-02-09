@@ -50,8 +50,8 @@ def user_info_insert(conn, dto: user_info_dto.UserInfoDTO):
         dto.real_collect, dto.real_wish, dto.real_on_hold, dto.real_dropped, dto.group_num,
         dto.create_time, dto.update_time
     )
-    flag = mysql_client.execute_sql(conn, insert_sql, params)
-    return flag
+    id = mysql_client.execute_sql(conn, insert_sql, params)
+    return id
 
 
 def user_info_update(conn, dto: user_info_dto.UserInfoDTO):
