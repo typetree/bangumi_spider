@@ -63,19 +63,19 @@ def spider_update(conn, uid: user_info_dto.UserInfoDTO, uid_update:user_info_dto
     uid.anime_dropped = uid_update.anime_dropped
 
     uid.game_do = uid_update.game_do
-    uid.game_collect = uid_update.anime_collect
+    uid.game_collect = uid_update.game_collect
     uid.game_wish = uid_update.game_wish
     uid.game_on_hold = uid_update.game_on_hold
     uid.game_dropped = uid_update.game_dropped
     
     uid.book_do = uid_update.book_do
-    uid.book_collect = uid_update.anime_collect
+    uid.book_collect = uid_update.book_collect
     uid.book_wish = uid_update.book_wish
     uid.book_on_hold = uid_update.book_on_hold
     uid.book_dropped = uid_update.book_dropped
     
     uid.real_do = uid_update.real_do
-    uid.real_collect = uid_update.anime_collect
+    uid.real_collect = uid_update.real_collect
     uid.real_wish = uid_update.real_wish
     uid.real_on_hold = uid_update.real_on_hold
     uid.real_dropped = uid_update.real_dropped

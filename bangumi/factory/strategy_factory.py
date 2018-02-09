@@ -48,7 +48,6 @@ def proxy_target_method(CATEGORY, TARGET_METHOD,
         raise my_exception.MyException("proxy_target_method no found")
 
 
-
 def spider_version_column_get(usvd: user_spider_version_dto.UserSpiderVersionDTO, TABLE_NAME):
 
     if TABLE_NAME == table_constants.TABLE_USER_INFO:

@@ -67,3 +67,5 @@ def execute_select_sql(conn, sql):
             time.sleep(1)
 
     return cursor.fetchall()
+
+
