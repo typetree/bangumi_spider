@@ -55,7 +55,7 @@ def user_friends_update(conn, dto: user_friends_dto.UserFriendsDTO):
 
 def unable_by_ids(conn, time, ids):
     sql = """
-        update user_friends set optimistic = optimistic + 1, status = %s, update_time = '{}'
+        update user_friends set optimistic = optimistic + 1, status = 'UNABLE', update_time = '{}'
         where id in ({})
     """.format(time, ids)
     return mysql_client.execute_sql(conn, sql)

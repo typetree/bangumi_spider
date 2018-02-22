@@ -24,7 +24,7 @@ class user_info_add_main:
             print("find start, bangumi_id:{}".format(bangumi_id))
             conn = mysql_client.get_connect()
             update_data = user_info_spider.get_user_info(str(bangumi_id))
-            user_info_dto = user_info_service.find_by_code(conn, update_data.code)
+            user_info_dto = user_info_service.find_by_bangumi_id(conn, bangumi_id)
             if user_info_dto.bangumi_user_id != bangumi_id:
                 user_info_dto.bangumi_user_id = bangumi_id
                 user_info_service.update_spider_version(conn, user_info_dto)

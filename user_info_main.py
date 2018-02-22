@@ -3,6 +3,7 @@
 
 from bangumi.constants import table_constants
 from bangumi.dto import user_info_dto
+from bangumi.service import user_info_service
 from bangumi.spider import user_info_spider
 from bangumi.utils import base_util
 
@@ -17,5 +18,6 @@ def update_user_info(uid: user_info_dto.UserInfoDTO):
 if __name__ == "__main__":
 
     base_util.spider_version_threading(
-        table_constants.CATEGORY_USER, table_constants.TABLE_USER_INFO, update_user_info)
+        table_constants.CATEGORY_USER, table_constants.TABLE_USER_INFO,
+        update_user_info, user_info_service.spider_update)
 

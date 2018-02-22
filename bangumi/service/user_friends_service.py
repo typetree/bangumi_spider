@@ -30,7 +30,10 @@ def create_by_user_and_friend(conn, uid: user_info_dto.UserInfoDTO, friend: user
 
 
 def unable_by_ids(conn, friend_user_ids):
-    ids = ",".join(friend_user_ids)
+    if len(friend_user_ids) > 1:
+        ids = ",".join(friend_user_ids)
+    else:
+        ids = friend_user_ids[0]
     time = common_util.get_now_time()
     user_friends_dao.unable_by_ids(conn, time, ids)
 
@@ -48,16 +51,16 @@ def spider_update(conn, uid: user_info_dto.UserInfoDTO, friends_update: user_inf
         else:
             try:
                 friend_dto = user_info_service.find_by_code(conn, friend.code)
-                friend.id = friend_dto.id
-                create_by_user_and_friend(conn, uid, friend)
             except my_exception.MyException as e:
                 if e.message.find("not existed"):
-                    user_info_service.create(conn, friend)
+                    friend_dto = user_info_service.find_by_bangumi_id(conn, friend.bangumi_user_id)
+            friend.id = friend_dto.id
+            create_by_user_and_friend(conn, uid, friend)
 
 
     if len(map) != 0:
         friend_user_ids = []
-        for v in map.items():
+        for v in map.values():
             friend_user_ids.append(v)
 
         unable_by_ids(conn, friend_user_ids)

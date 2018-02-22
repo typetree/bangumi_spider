@@ -24,7 +24,7 @@ def unable_version(conn, TABLE_NAME, usvDTO: user_spider_version_dto.UserSpiderV
     }
     usvDTO = strategy_factory.spider_version_column_set(usvDTO, columns_set, TABLE_NAME)
 
-    usvDTO.log = log
+    usvDTO.log = log + ", version:{}".format(columns_set['version'])
     usvDTO.status = table_constants.UNABLE
     usvDTO.update_time = common_util.get_now_time()
 

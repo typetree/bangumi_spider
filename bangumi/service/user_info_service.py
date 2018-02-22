@@ -21,11 +21,26 @@ def find_by_code(conn, code):
     sql_find_by_code = "code = '{}' and status = '{}'".format(code, table_constants.ENABLE)
     uids = user_info_dao.user_info_select(conn, sql_find_by_code)
     if uids is None or len(uids) == 0:
+        # 如果没有找到用户信息，
         log = "user_code:{} is not existed in user_info".format(code)
         print(log)
         raise my_exception.MyException(log)
     elif len(uids) > 1:
         log = " user_code:{} is more than 1 in user_info".format(code)
+        print(log)
+        raise my_exception.MyException(log)
+    return uids[0]
+
+
+def find_by_bangumi_id(conn, bangumi_id):
+    sql_find_by_code = "bangumi_user_id = '{}' and status = '{}'".format(bangumi_id, table_constants.ENABLE)
+    uids = user_info_dao.user_info_select(conn, sql_find_by_code)
+    if uids is None or len(uids) == 0:
+        log = "bangumi_id:{} is not existed in user_info".format(bangumi_id)
+        print(log)
+        raise my_exception.MyException(log)
+    elif len(uids) > 1:
+        log = " bangumi_id:{} is more than 1 in user_info".format(bangumi_id)
         print(log)
         raise my_exception.MyException(log)
     return uids[0]

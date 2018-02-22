@@ -42,7 +42,7 @@ def unable_category_spider_version_method(CATEGORY):
 '''
 根据分类，目标方法，代理增强爬虫功能
 '''
-def proxy_target_method(CATEGORY, TARGET_METHOD,
+def proxy_target_method(CATEGORY, TARGET_METHOD, UPDATE_METHOD,
                         conn, TABLE_NAME, usvd: user_spider_version_dto.UserSpiderVersionDTO, svd):
 
     if CATEGORY == table_constants.CATEGORY_USER:
@@ -51,7 +51,7 @@ def proxy_target_method(CATEGORY, TARGET_METHOD,
 
         update_data = TARGET_METHOD(uid)
 
-        usvd = base_util.compare_and_update(usvd, TABLE_NAME, svd, conn, uid, update_data)
+        usvd = base_util.compare_and_update(usvd, TABLE_NAME, svd, conn, uid, update_data, UPDATE_METHOD)
 
         print("{}:{} update {} finish, version:{}".format(uid.code, uid.name, TABLE_NAME, svd))
         return usvd
@@ -102,7 +102,6 @@ def spider_version_column_set(usvd: user_spider_version_dto.UserSpiderVersionDTO
 
 '''
 根据表名，获取表的更新方法
-'''
 def spider_update_method(TABLE_NAME):
     if TABLE_NAME == table_constants.TABLE_USER_INFO:
         return user_info_service.spider_update
@@ -112,5 +111,6 @@ def spider_update_method(TABLE_NAME):
 
     else:
         raise my_exception.MyException("spider_update_method no found")
+'''
 
 

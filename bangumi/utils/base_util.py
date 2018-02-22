@@ -12,7 +12,7 @@ from ..utils import common_util
 from ..utils.my_exception import MyException
 
 
-def spider_version_threading(CATEGORY, TABLE_NAME, TARGET_METHOD):
+def spider_version_threading(CATEGORY, TABLE_NAME, TARGET_METHOD, UPDATE_METHOD):
     try:
         conn = mysql_client.get_connect()
 
@@ -21,7 +21,7 @@ def spider_version_threading(CATEGORY, TABLE_NAME, TARGET_METHOD):
         conn.close()
 
         svd = spider_version_data[0]
-        spider_do(CATEGORY, TABLE_NAME, svd, TARGET_METHOD)
+        spider_do(CATEGORY, TABLE_NAME, svd, TARGET_METHOD, UPDATE_METHOD)
     except MyException as e:
         print(e.message)
     except Exception:
@@ -29,7 +29,7 @@ def spider_version_threading(CATEGORY, TABLE_NAME, TARGET_METHOD):
         conn.close()
 
 
-def spider_do(CATEGORY, TABLE_NAME, svd, TARGET_METHOD):
+def spider_do(CATEGORY, TABLE_NAME, svd, TARGET_METHOD, UPDATE_METHOD):
     try:
         conn = mysql_client.get_connect()
 
@@ -47,7 +47,7 @@ def spider_do(CATEGORY, TABLE_NAME, svd, TARGET_METHOD):
             for csvDto in category_spider_version_dtos:
                 t = threading.Thread(
                     target=threading_process,
-                    args=(CATEGORY, TARGET_METHOD, TABLE_NAME, csvDto, svd.spider_version,))
+                    args=(CATEGORY, TARGET_METHOD, UPDATE_METHOD, TABLE_NAME, csvDto, svd.spider_version,))
                 thread_list.append(t)
 
             for t in thread_list:
@@ -61,10 +61,10 @@ def spider_do(CATEGORY, TABLE_NAME, svd, TARGET_METHOD):
         conn.close()
 
 
-def threading_process(CATEGORY, TARGET_METHOD, TABLE_NAME, csvDto, spider_version):
+def threading_process(CATEGORY, TARGET_METHOD, UPDATE_METHOD, TABLE_NAME, csvDto, spider_version):
     try:
         conn = mysql_client.get_connect()
-        csvd = strategy_factory.proxy_target_method(CATEGORY, TARGET_METHOD,
+        csvd = strategy_factory.proxy_target_method(CATEGORY, TARGET_METHOD, UPDATE_METHOD,
                                                     conn, TABLE_NAME, csvDto, spider_version)
 
         strategy_factory.update_category_spider_version_method(CATEGORY)(conn, csvd)
@@ -87,7 +87,7 @@ def fingerprint_compare(old_fingerprint, update_value):
 
 
 def compare_and_update(usvd: user_spider_version_dto.UserSpiderVersionDTO, TABLE_NAME, svd,
-                       conn, dto, update_data):
+                       conn, dto, update_data, UPDATE_METHOD):
 
     columns = strategy_factory.spider_version_column_get(usvd, TABLE_NAME)
 
@@ -98,8 +98,7 @@ def compare_and_update(usvd: user_spider_version_dto.UserSpiderVersionDTO, TABLE
 
     if update_fingerprint is not None:
 
-        UPATE_METHOD = strategy_factory.spider_update_method(TABLE_NAME)
-        UPATE_METHOD(conn, dto, update_data)
+        UPDATE_METHOD(conn, dto, update_data)
         active_degree = active_degree + 1
         fingerprint = update_fingerprint
     elif active_degree > 0:
