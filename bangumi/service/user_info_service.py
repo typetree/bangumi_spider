@@ -53,7 +53,7 @@ def spider_update(conn, uid: user_info_dto.UserInfoDTO, uid_update:user_info_dto
     uid.name = uid_update.name
     uid.code = uid_update.code
     uid.profile_photo = uid_update.profile_photo
-    uid.bangumi_user_id = uid_update.bangumi_user_id
+    # uid.bangumi_user_id = uid_update.bangumi_user_id
     uid.join_time = uid_update.join_time
     uid.intro = uid_update.intro
     uid.anime_do = uid_update.anime_do

@@ -32,12 +32,12 @@ def get_user_soup(UserCode):
     return soup
 
 
-def get_user_info(UserCode):
-    soup = get_user_soup(UserCode)
+def get_user_info(bangumi_user_id):
+    soup = get_user_soup(bangumi_user_id)
     user_name_list = soup.select('#headerProfile > div > div.headerContainer > h1 > div.inner > a')
 
     if len(user_name_list) == 0:
-        raise my_exception.BreakException("user_info is not found, user_code:{}".format(UserCode))
+        raise my_exception.BreakException("user_info is not found, bangumi_user_id:{}".format(bangumi_user_id))
 
     user_name = user_name_list[0].get_text()
     user_code = soup.select('#headerProfile > div > div.headerContainer > h1 > div.inner > small')[
@@ -47,14 +47,14 @@ def get_user_info(UserCode):
         .get("style")
     user_profile_photo = photo_style[photo_style.find("'")+1: photo_style.rfind("'")]
 
-    user_bangumi_user_id = user_profile_photo[user_profile_photo.rfind("/")+1: user_profile_photo.rfind(".")]
-    if user_bangumi_user_id == 'icon':
-        user_bangumi_user_id = UserCode
+    # user_bangumi_user_id = user_profile_photo[user_profile_photo.rfind("/")+1: user_profile_photo.rfind(".")]
+    # if user_bangumi_user_id == 'icon':
+    #     user_bangumi_user_id = UserCode
 
     # 改名用户不抛异常。
-    if user_code != UserCode and user_bangumi_user_id != UserCode:
-        raise my_exception.MyException("spider user homepage is fail,user_code({}) != UserCode({})"
-                                       .format(user_code, UserCode))
+    # if user_code != UserCode and user_bangumi_user_id != UserCode:
+    #     raise my_exception.MyException("spider user homepage is fail,user_code({}) != UserCode({})"
+    #                                    .format(user_code, UserCode))
 
     user_join_time = soup.select('span.tip')[0].get_text().split(' ')[0]
 
@@ -65,11 +65,11 @@ def get_user_info(UserCode):
 
     user_anime = soup.select('#anime > div.horizontalOptions.clearit > ul > li')
 
-    user_anime_do = None
-    user_anime_collect = None
-    user_anime_wish = None
-    user_anime_on_hold = None
-    user_anime_dropped = None
+    user_anime_do = 0
+    user_anime_collect = 0
+    user_anime_wish = 0
+    user_anime_on_hold = 0
+    user_anime_dropped = 0
 
     for user_anime_list in user_anime:
         if user_anime_list == user_anime[0]:
@@ -91,11 +91,11 @@ def get_user_info(UserCode):
         if '抛弃' in user_anime_message:
             user_anime_dropped = user_anime_message.split("部")[0]
 
-    user_game_do = None
-    user_game_collect = None
-    user_game_wish = None
-    user_game_on_hold = None
-    user_game_dropped = None
+    user_game_do = 0
+    user_game_collect = 0
+    user_game_wish = 0
+    user_game_on_hold = 0
+    user_game_dropped = 0
 
     user_game = soup.select('#game > div.horizontalOptions.clearit > ul > li')
     for user_game_list in user_game:
@@ -117,11 +117,11 @@ def get_user_info(UserCode):
         if '抛弃' in user_game_message:
             user_game_dropped = user_game_message.split("部")[0]
 
-    user_book_do = None
-    user_book_collect = None
-    user_book_wish = None
-    user_book_on_hold = None
-    user_book_dropped = None
+    user_book_do = 0
+    user_book_collect = 0
+    user_book_wish = 0
+    user_book_on_hold = 0
+    user_book_dropped = 0
 
     user_book = soup.select('#book > div.horizontalOptions.clearit > ul > li')
     for user_book_list in user_book:
@@ -143,11 +143,11 @@ def get_user_info(UserCode):
         if '抛弃' in user_book_message:
             user_book_dropped = user_book_message.split("本")[0]
 
-    user_real_do = None
-    user_real_collect = None
-    user_real_wish = None
-    user_real_on_hold = None
-    user_real_dropped = None
+    user_real_do = 0
+    user_real_collect = 0
+    user_real_wish = 0
+    user_real_on_hold = 0
+    user_real_dropped = 0
 
     user_real = soup.select('#real > div.horizontalOptions.clearit > ul > li')
     for user_real_list in user_real:
@@ -181,7 +181,7 @@ def get_user_info(UserCode):
     uid.name = user_name
     uid.code = user_code
     uid.profile_photo = user_profile_photo
-    uid.bangumi_user_id = user_bangumi_user_id
+    # uid.bangumi_user_id = user_bangumi_user_id
     uid.join_time = user_join_time
     uid.intro = user_intro
     uid.anime_do = user_anime_do

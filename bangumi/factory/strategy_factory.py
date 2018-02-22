@@ -5,7 +5,9 @@ from ..service import user_spider_version_service, user_info_service, user_frien
 from ..constants import table_constants
 from ..utils import my_exception, base_util
 
-
+'''
+根据分类，查找对应的爬虫版本控制
+'''
 def find_category_spider_version_method(CATEGORY):
     if CATEGORY == table_constants.CATEGORY_USER:
         return user_spider_version_service.find_version
@@ -14,6 +16,9 @@ def find_category_spider_version_method(CATEGORY):
         raise my_exception.MyException("find_category_spider_version_method no found")
 
 
+'''
+根据分类，更新对应的爬虫版本控制
+'''
 def update_category_spider_version_method(CATEGORY):
     if CATEGORY == table_constants.CATEGORY_USER:
         return user_spider_version_service.update_version
@@ -22,6 +27,9 @@ def update_category_spider_version_method(CATEGORY):
         raise my_exception.MyException("update_category_spider_version_method no found")
 
 
+'''
+根据分类，失效对应的爬虫版本控制
+'''
 def unable_category_spider_version_method(CATEGORY):
 
     if CATEGORY == table_constants.CATEGORY_USER:
@@ -31,6 +39,9 @@ def unable_category_spider_version_method(CATEGORY):
         raise my_exception.MyException("user_spider_version_unable_factory no found")
 
 
+'''
+根据分类，目标方法，代理增强爬虫功能
+'''
 def proxy_target_method(CATEGORY, TARGET_METHOD,
                         conn, TABLE_NAME, usvd: user_spider_version_dto.UserSpiderVersionDTO, svd):
 
@@ -48,6 +59,9 @@ def proxy_target_method(CATEGORY, TARGET_METHOD,
         raise my_exception.MyException("proxy_target_method no found")
 
 
+'''
+获取用户类目下，不同表的爬虫版本信息
+'''
 def spider_version_column_get(usvd: user_spider_version_dto.UserSpiderVersionDTO, TABLE_NAME):
 
     if TABLE_NAME == table_constants.TABLE_USER_INFO:
@@ -68,6 +82,9 @@ def spider_version_column_get(usvd: user_spider_version_dto.UserSpiderVersionDTO
         raise my_exception.MyException("user_spider_version_column_get no found")
 
 
+'''
+设置用户类目下，不同表的爬虫版本信息
+'''
 def spider_version_column_set(usvd: user_spider_version_dto.UserSpiderVersionDTO, columns, TABLE_NAME):
     if TABLE_NAME == table_constants.TABLE_USER_INFO:
         usvd.user_info_version = columns['version'] if columns['version'] != "" else usvd.user_info_version
@@ -83,6 +100,9 @@ def spider_version_column_set(usvd: user_spider_version_dto.UserSpiderVersionDTO
         raise my_exception.MyException("user_spider_version_column_set no found")
 
 
+'''
+根据表名，获取表的更新方法
+'''
 def spider_update_method(TABLE_NAME):
     if TABLE_NAME == table_constants.TABLE_USER_INFO:
         return user_info_service.spider_update

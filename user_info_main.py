@@ -9,10 +9,9 @@ from bangumi.utils import base_util
 
 def update_user_info(uid: user_info_dto.UserInfoDTO):
 
-    update_data = user_info_spider.get_user_info(uid.code)
+    update_data = user_info_spider.get_user_info(uid.bangumi_user_id)
 
     return update_data
-
 
 
 if __name__ == "__main__":

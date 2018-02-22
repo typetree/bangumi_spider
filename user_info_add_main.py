@@ -47,7 +47,7 @@ class user_info_add_main:
 
 if __name__ == "__main__":
 
-    bangumi_id = 401219
+    bangumi_id = 405112
     target = bangumi_id + 15
 
     thread_list = []
@@ -67,5 +67,3 @@ if __name__ == "__main__":
             target = bangumi_id + 15
             thread_list = []
 
-        if bangumi_id == 402000:
-            Flag = False
