@@ -24,10 +24,17 @@ CHANNEL_WIKI = '/wiki'
 # 天窗
 CHANNEL_DOUJIN = '/doujin'
 
+# 人物
+PERSON_INDEX = 'http://bangumi.tv/person/'
 
 
 def get_user_url(user_code, channel=""):
-    user_url = '{}{}{}'.format(USER_INDEX,user_code,channel)
+    user_url = '{}{}{}'.format(USER_INDEX, user_code, channel)
+    return user_url
+
+
+def get_person_url(user_code, channel=""):
+    user_url = '{}{}{}'.format(PERSON_INDEX, user_code, channel)
     return user_url
 
 

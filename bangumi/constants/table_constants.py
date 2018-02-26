@@ -20,3 +20,11 @@ TABLE_SPIDER_VERSION = 'spider_version'
 TABLE_USER_FRIENDS = 'user_friends'
 TABLE_USER_INFO = 'user_info'
 TABLE_USER_SPIDER_VERSION = 'user_spider_version'
+
+
+# 人物
+# 性别
+
+UNKNOW = 'UNKNOW'
+FEMALE = 'FEMALE'
+MALE = 'MALE'

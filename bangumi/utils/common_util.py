@@ -1,3 +1,4 @@
+import datetime
 import hashlib
 import json
 import time
@@ -20,3 +21,15 @@ def hashlib_md5(list):
     m.update(str.encode("utf8"))
     fingerprint = m.hexdigest()
     return fingerprint
+
+
+def format_YYMMDD(date: str):
+    date = date.replace('年', '-')
+    date = date.replace('月', '-')
+    date = date.replace('日', '')
+    fmt = '%Y-%m-%d'
+    time_tuple = time.strptime(date, fmt)
+    year, month, day = time_tuple[:3]
+    a_date = datetime.datetime(year, month, day, 0, 0)
+    return a_date
+
