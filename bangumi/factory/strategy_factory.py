@@ -46,7 +46,7 @@ def proxy_target_method(CATEGORY, TARGET_METHOD, UPDATE_METHOD,
                         conn, TABLE_NAME, usvd: user_spider_version_dto.UserSpiderVersionDTO, svd):
 
     if CATEGORY == table_constants.CATEGORY_USER:
-        uid = user_info_service.find_by_code(conn, usvd.user_code)
+        uid = user_info_service.find_by_bangumi_id(conn, usvd.bangumi_user_id)
         print("{}:{} update user_info".format(uid.code, uid.name))
 
         update_data = TARGET_METHOD(uid)

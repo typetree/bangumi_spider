@@ -22,3 +22,4 @@ if __name__ == "__main__":
         table_constants.CATEGORY_USER, table_constants.TABLE_USER_FRIENDS,
         update_user_frinds, user_friends_service.spider_update)
 
+    exit()

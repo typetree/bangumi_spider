@@ -37,15 +37,19 @@ def find_friends(USER_CODE):
     for user_code, user_name, photo_style in zip(user_codes, user_names, photo_styles):
         userInfoDTO = user_info_dto.UserInfoDTO()
 
+        userInfoDTO.code = str(user_code.get('href')[6:])
+        if userInfoDTO.code == '':
+            continue
+
+        userInfoDTO.name = user_name.get_text().split(" ")[1]
+
         photo_style = photo_style.get('src')
         user_profile_photo = photo_style[photo_style.find("'")+1: photo_style.rfind("'")]
         user_bangumi_user_id = user_profile_photo[user_profile_photo.rfind("/")+1: user_profile_photo.rfind(".")]
         if user_bangumi_user_id == 'icon':
-            user_bangumi_user_id = -666
-        userInfoDTO.bangumi_user_id = int(user_bangumi_user_id)
+            user_bangumi_user_id = userInfoDTO.code
+        userInfoDTO.bangumi_user_id = user_bangumi_user_id
 
-        userInfoDTO.code = str(user_code.get('href')[6:])
-        userInfoDTO.name = user_name.get_text().split(" ")[1]
         data.append(userInfoDTO)
     return data
 

@@ -17,14 +17,7 @@ def find_version(conn, TABLE_NAME, svd: user_spider_version_dto.UserSpiderVersio
 
 def unable_version(conn, TABLE_NAME, usvDTO: user_spider_version_dto.UserSpiderVersionDTO, version, log):
 
-    columns_set = {
-        "version": version,
-        "fingerprint": "",
-        "active_degree": ""
-    }
-    usvDTO = strategy_factory.spider_version_column_set(usvDTO, columns_set, TABLE_NAME)
-
-    usvDTO.log = log + ", version:{}".format(columns_set['version'])
+    usvDTO.log = log + ", version:{}".format(version)
     usvDTO.status = table_constants.UNABLE
     usvDTO.update_time = common_util.get_now_time()
 

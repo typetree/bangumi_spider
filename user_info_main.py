@@ -21,3 +21,4 @@ if __name__ == "__main__":
         table_constants.CATEGORY_USER, table_constants.TABLE_USER_INFO,
         update_user_info, user_info_service.spider_update)
 
+    exit()
