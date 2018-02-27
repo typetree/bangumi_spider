@@ -58,10 +58,14 @@ def write_database(person_data_queue:Queue):
             data = person_data_queue.get()
             svpd = spider_version_person_service.create_by_bangumi_person_id(conn, data.bangumi_person_id)
 
-            basic_person_service.spider_create(conn, data)
+            person_dto = basic_person_service.spider_create(conn, data)
+            spider_version_person_service.update_by_person_dto(conn, svpd, person_dto, 'basic_person_add_main')
         except Exception as e:
-            print("报错重试", traceback.format_exc())
-            spider_version_person_service.unable_version(conn, svpd)
+            log = traceback.format_exc()
+            print("报错重试", log)
+            spider_version_person_service.unable_version(conn, svpd, 'basic_person_add_main', log)
+        finally:
+            conn.close()
 
 
 if __name__ == "__main__":

@@ -15,5 +15,6 @@ def spider_create(conn, person_dto: basic_person_dto.BasicPersonDTO):
     person_dto.create_time = time
     person_dto.update_time = time
 
-    basic_person_dao.basic_person_insert(conn, person_dto)
-    pass
+    id = basic_person_dao.basic_person_insert(conn, person_dto)
+    person_dto.id = id
+    return person_dto

@@ -26,8 +26,23 @@ def create_by_bangumi_person_id(conn, bangumi_person_id):
     svpd.update_time = time
     svpd.create_time = time
 
-    spider_version_person_dao.spider_version_person_insert(conn,svpd)
+    id = spider_version_person_dao.spider_version_person_insert(conn,svpd)
+    svpd.id = id
     return svpd
 
 
-def unable_version(conn, svpd:spider_version_person_dto):
+def update_by_person_dto(conn, svpd:spider_version_person_dto.SpiderVersionPersonDTO,
+                         person_dto:basic_person_dto.BasicPersonDTO, version):
+    svpd.person_id = person_dto.id
+    svpd.person_name = person_dto.name
+    svpd.basic_person_version = version
+    svpd.basic_person_fingerprint = common_util.hashlib_md5([person_dto])
+    svpd.update_time = common_util.get_now_time()
+    spider_version_person_dao.spider_version_person_update(conn, svpd)
+
+
+def unable_version(conn, svpd:spider_version_person_dto.SpiderVersionPersonDTO, version, log):
+    svpd.log = log + ", version:{}".format(version)
+    svpd.status = table_constants.UNABLE
+    svpd.update_time = common_util.get_now_time()
+    spider_version_person_dao.spider_version_person_update(conn, svpd)
