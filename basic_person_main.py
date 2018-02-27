@@ -3,11 +3,12 @@
 from bangumi.constants import table_constants
 from bangumi.dto import basic_person_dto
 from bangumi.service import basic_person_service
+from bangumi.spider import basic_person_spider
 from bangumi.utils import base_util
 
 
 def spider_basic_person(person_dto:basic_person_dto.BasicPersonDTO):
-    basic_person_spider.get_basic_person(uid.bangumi_user_id)
+    person_dto = basic_person_spider.get_person(person_dto.bangumi_user_id)
     pass
 
 

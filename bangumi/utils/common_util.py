@@ -15,7 +15,7 @@ def get_now_time():
 def hashlib_md5(list):
     str = ""
     for dto in list:
-        dto_json = json.dumps(dto, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+        dto_json = json.dumps(dto, default=lambda o: o.__dict__, sort_keys=True, indent=4, ensure_ascii=False)
         str += dto_json
     m = hashlib.md5()
     m.update(str.encode("utf8"))
