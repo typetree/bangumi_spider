@@ -34,9 +34,10 @@ def get_person_by_soup(id, soup):
     person_dto = basic_person_dto.BasicPersonDTO()
 
     names = soup.select("#headerSubject > h1 > a")
-    if names is None or len(names) <= 0:
+    name = names[0].get_text()
+    if name is None or len(name) <= 0:
         return None
-    person_dto.name = names[0].get_text()
+    person_dto.name = name
     person_dto.bangumi_person_id = id
 
     professions_temp = soup.select("#columnCrtB > div.clearit > h2")[0].get_text().split(":")[1].split(" ")
@@ -77,7 +78,7 @@ def get_person_by_soup(id, soup):
         elif column == '血型':
             person_dto.blood_type = data
         elif column == '身高':
-            person_dto.height = int(data.replace('cm', ''))
+            person_dto.height = data[0:3]
         elif column == '出生地':
             person_dto.homeplace = data
         elif column == '教育程度':

@@ -1,5 +1,6 @@
 # *_*coding:utf-8 *_*
 # author: hoicai
+import traceback
 
 import MySQLdb
 import time
@@ -35,7 +36,7 @@ def execute_sql(conn, sql, params=None):
             # print("操作成功,sql:{},params:{}", sql, params)
             flag = False
         except Exception as e:
-            log = "操作出错，重试中...sql:{},params:{},e:{}".format(sql, params, e)
+            log = "操作出错，重试中...sql:{},params:{},e:{}".format(sql, params, traceback.format_exc())
             print(log)
             retry_num -= 1
             time.sleep(1)

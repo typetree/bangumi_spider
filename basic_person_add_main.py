@@ -10,6 +10,7 @@ from bangumi.client import mysql_client
 from bangumi.dto import basic_person_dto
 from bangumi.service import basic_person_service, spider_version_person_service
 from bangumi.spider import basic_person_spider
+from bangumi.utils import my_exception
 
 
 def get_bangumi_person_id(person_soup_queue:Queue, start_id=1):
@@ -41,6 +42,8 @@ def get_person_data(person_soup_queue:Queue, person_data_queue:Queue):
             soup_list = person_soup_queue.get()
 
             data = basic_person_spider.get_person_by_soup(soup_list['id'], soup_list['soup'])
+            if data is None:
+                continue
             print("人物数据队列添加 id:{}, name:{}".format(data.bangumi_person_id, data.name))
             person_data_queue.put(data)
         except Exception as e:
@@ -49,18 +52,21 @@ def get_person_data(person_soup_queue:Queue, person_data_queue:Queue):
 
 
 def write_database(person_data_queue:Queue):
-    conn = mysql_client.get_connect()
     while True:
         if person_data_queue.empty():
             time.sleep(1)
             continue
         try:
+            conn = mysql_client.get_connect()
             data = person_data_queue.get()
             svpd = spider_version_person_service.create_by_bangumi_person_id(conn, data.bangumi_person_id)
 
             person_dto = basic_person_service.spider_create(conn, data)
             spider_version_person_service.update_by_person_dto(conn, svpd, person_dto, 'basic_person_add_main')
-        except Exception as e:
+        except my_exception.MyException as e:
+            log = e.message
+            spider_version_person_service.unable_version(conn, svpd, 'basic_person_add_main', log)
+        except Exception :
             log = traceback.format_exc()
             print("报错重试", log)
             spider_version_person_service.unable_version(conn, svpd, 'basic_person_add_main', log)
@@ -82,3 +88,17 @@ if __name__ == "__main__":
         threading.Thread(target=get_person_data, args=(person_soup_queue, person_data_queue)).start()
 
     threading.Thread(target=write_database, args=(person_data_queue,)).start()
+    pass
+
+    # conn = mysql_client.get_connect()
+    # # start_id = spider_version_person_service.find_max_bangumi_person_id(conn)
+    # start_id = 22
+    #
+    # soup = basic_person_spider.get_person_soup(start_id)
+    #
+    # data = basic_person_spider.get_person_by_soup(start_id, soup)
+    #
+    # svpd = spider_version_person_service.create_by_bangumi_person_id(conn, data.bangumi_person_id)
+    #
+    # person_dto = basic_person_service.spider_create(conn, data)
+    # spider_version_person_service.update_by_person_dto(conn, svpd, person_dto, 'basic_person_add_main')
