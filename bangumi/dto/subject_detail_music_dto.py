@@ -1,0 +1,68 @@
+# *_*coding:utf-8 *_*
+# author: hoicai
+
+
+class SubjectDetailMusicDTO(object):
+    def __init__(self, row=None):
+        if row is None:
+            self.id = None
+            self.optimistic = None
+            self.subject_id = None
+            self.bangumi_subject_id = None
+            self.name = None
+            self.type = None
+            self.picture = None
+            self.chinese_name = None
+            self.alias = None
+            self.version_feature = None
+            self.sale_date = None
+            self.price = None
+            self.time_length = None
+            self.discs_num = None
+            self.intro = None
+            self.topic_list_id = None
+            self.comment_box_id = None
+            self.system_score_id = None
+            self.system_tag_id = None
+            self.do = None
+            self.collect = None
+            self.wish = None
+            self.on_hold = None
+            self.dropped = None
+            self.remark = None
+            self.status = None
+            self.creator = None
+            self.create_time = None
+            self.updater = None
+            self.update_time = None
+        else:
+            self.id = row[0]
+            self.optimistic = row[1]
+            self.subject_id = row[2]
+            self.bangumi_subject_id = row[3]
+            self.name = row[4]
+            self.type = row[5]
+            self.picture = row[6]
+            self.chinese_name = row[7]
+            self.alias = row[8]
+            self.version_feature = row[9]
+            self.sale_date = row[10]
+            self.price = row[11]
+            self.time_length = row[12]
+            self.discs_num = row[13]
+            self.intro = row[14]
+            self.topic_list_id = row[15]
+            self.comment_box_id = row[16]
+            self.system_score_id = row[17]
+            self.system_tag_id = row[18]
+            self.do = row[19]
+            self.collect = row[20]
+            self.wish = row[21]
+            self.on_hold = row[22]
+            self.dropped = row[23]
+            self.remark = row[24]
+            self.status = row[25]
+            self.creator = row[26]
+            self.create_time = row[27]
+            self.updater = row[28]
+            self.update_time = row[29]

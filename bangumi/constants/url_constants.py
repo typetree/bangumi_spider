@@ -26,6 +26,8 @@ CHANNEL_DOUJIN = '/doujin'
 
 # 人物
 PERSON_INDEX = 'http://bangumi.tv/person/'
+# 项目
+SUBJECT_INDEX = 'http://bangumi.tv/subject/'
 
 
 def get_user_url(user_code, channel=""):
@@ -35,6 +37,11 @@ def get_user_url(user_code, channel=""):
 
 def get_person_url(user_code, channel=""):
     user_url = '{}{}{}'.format(PERSON_INDEX, user_code, channel)
+    return user_url
+
+
+def get_subject_url(subject_id, channel=""):
+    user_url = '{}{}{}'.format(SUBJECT_INDEX, subject_id, channel)
     return user_url
 
 

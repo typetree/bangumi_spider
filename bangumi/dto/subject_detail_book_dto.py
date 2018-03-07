@@ -1,0 +1,72 @@
+# *_*coding:utf-8 *_*
+# author: hoicai
+
+
+class SubjectDetailBookDTO(object):
+    def __init__(self, row=None):
+        if row is None:
+            self.id = None
+            self.optimistic = None
+            self.subject_id = None
+            self.bangumi_subject_id = None
+            self.name = None
+            self.type = None
+            self.picture = None
+            self.chinese_name = None
+            self.offering_date = None
+            self.alias = None
+            self.price = None
+            self.sale_date = None
+            self.ISBN = None
+            self.intro = None
+            self.page_num = None
+            self.topic_num = None
+            self.extends = None
+            self.topic_list_id = None
+            self.comment_box_id = None
+            self.system_score_id = None
+            self.system_tag_id = None
+            self.do = None
+            self.collect = None
+            self.wish = None
+            self.on_hold = None
+            self.dropped = None
+            self.remark = None
+            self.status = None
+            self.creator = None
+            self.create_time = None
+            self.updater = None
+            self.update_time = None
+        else:
+            self.id = row[0]
+            self.optimistic = row[1]
+            self.subject_id = row[2]
+            self.bangumi_subject_id = row[3]
+            self.name = row[4]
+            self.type = row[5]
+            self.picture = row[6]
+            self.chinese_name = row[7]
+            self.offering_date = row[8]
+            self.alias = row[9]
+            self.price = row[10]
+            self.sale_date = row[11]
+            self.ISBN = row[12]
+            self.intro = row[13]
+            self.page_num = row[14]
+            self.topic_num = row[15]
+            self.extends = row[16]
+            self.topic_list_id = row[17]
+            self.comment_box_id = row[18]
+            self.system_score_id = row[19]
+            self.system_tag_id = row[20]
+            self.do = row[21]
+            self.collect = row[22]
+            self.wish = row[23]
+            self.on_hold = row[24]
+            self.dropped = row[25]
+            self.remark = row[26]
+            self.status = row[27]
+            self.creator = row[28]
+            self.create_time = row[29]
+            self.updater = row[30]
+            self.update_time = row[31]

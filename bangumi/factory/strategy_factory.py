@@ -113,4 +113,3 @@ def spider_update_method(TABLE_NAME):
         raise my_exception.MyException("spider_update_method no found")
 '''
 
-

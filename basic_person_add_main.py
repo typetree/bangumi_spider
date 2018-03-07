@@ -18,17 +18,20 @@ def get_bangumi_person_id(person_soup_queue:Queue, start_id=1):
     flag = True
     break_num = 0
     while flag:
+        if break_num == 20:
+            print("人物信息更新到:{}".format(start_id-21))
+            break
+
         soup = basic_person_spider.get_person_soup(start_id)
         names = soup.select("#headerSubject > h1 > a")
         if names is None or len(names) <= 0:
             break_num += 1
+            start_id += 1
             continue
 
         print("人物页面队列添加 id:{}, name:{}".format(start_id, names[0].get_text()))
         person_soup_queue.put({"id": start_id, "soup": soup})
 
-        if break_num == 20:
-            break
         start_id += 1
 
 
@@ -78,6 +81,7 @@ if __name__ == "__main__":
 
     conn = mysql_client.get_connect()
     start_id = spider_version_person_service.find_max_bangumi_person_id(conn)
+    conn.close()
 
     person_soup_queue = Queue()
     person_data_queue = Queue()

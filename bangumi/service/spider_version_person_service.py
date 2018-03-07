@@ -7,7 +7,7 @@ from bangumi.utils import common_util
 
 
 def find_max_bangumi_person_id(conn):
-    sql = "1=1 order by bangumi_person_id desc"
+    sql = "1=1 order by bangumi_person_id desc limit 1"
 
     svpds = spider_version_person_dao.spider_version_person_select(conn, sql)
 
