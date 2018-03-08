@@ -9,6 +9,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from bangumi.constants import url_constants, table_constants
+from bangumi.dto import subject_info_dto
 
 
 def get_subject_soup(subject_id):
@@ -75,6 +76,14 @@ def get_name_by_soup(soup):
     return name
 
 
+def get_picture_by_soup(soup):
+    pictures = soup.select("#bangumiInfo > div > div > a > img")
+    if len(pictures) == 0:
+        return ''
+    picture = pictures[0].get("src")
+    return picture
+
+
 def get_message_by_soup(soup):
     id = get_bangumi_id_by_soup(soup)
     if id is None:
@@ -94,12 +103,19 @@ def get_message_by_soup(soup):
     return data
 
 
+def get_dto_by_soup(soup):
+    dto = subject_info_dto.SubjectInfoDTO()
+
+    soup.select("")
+
+
 if __name__ == "__main__":
 
     for i in range(1, 10000):
         soup = get_subject_soup(i)
-        data = get_message_by_soup(soup)
-        if data is None:
-            continue
-        print(data)
+        get_picture_by_soup(soup)
+        # data = get_message_by_soup(soup)
+        # if data is None:
+        #     continue
+        # print(data)
 

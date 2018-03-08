@@ -12,11 +12,15 @@ def get_now_time():
     return time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 
 
+def object_to_json(dto):
+    dto_json = json.dumps(dto, default=lambda o: o.__dict__, sort_keys=True, indent=4, ensure_ascii=False)
+    return dto_json
+
+
 def hashlib_md5(list):
     str = ""
     for dto in list:
-        dto_json = json.dumps(dto, default=lambda o: o.__dict__, sort_keys=True, indent=4, ensure_ascii=False)
-        str += dto_json
+        str += object_to_json(dto)
     m = hashlib.md5()
     m.update(str.encode("utf8"))
     fingerprint = m.hexdigest()

@@ -1,12 +1,11 @@
 # *_*coding:utf-8 *_*
 # author: hoicai
 import threading
-from queue import Queue
 
-from multiprocessing import Process
+from multiprocessing import Process,Queue
 
 from bangumi.client import mysql_client
-from bangumi.dto import subject_info_dto
+from bangumi.factory import subject_strategy_factory
 from bangumi.service import subject_info_service
 from bangumi.spider import subject_info_spider
 
@@ -24,13 +23,13 @@ def get_id_queue(id_queue:Queue, start_id):
         start_id += 1
 
 
-def get_message_soup_queue(subject_soup_queue, subject_message_queue, id_queue, max_thread_num=4):
+def get_dto_soup_queue(subject_soup_queue, subject_message_queue, id_queue, subject_profession_person_queue, max_thread_num=4):
     for i in range(0, max_thread_num):
-        threading.Thread(target=get_message_queue,
-                         args=(subject_soup_queue, subject_message_queue, id_queue,)).start()
+        threading.Thread(target=get_dto_queue,
+                         args=(subject_soup_queue, subject_message_queue, id_queue, subject_profession_person_queue,)).start()
 
 
-def get_message_queue(subject_soup_queue:Queue, subject_message_queue:Queue, id_queue:Queue):
+def get_dto_queue(subject_dto_queue:Queue, subject_message_queue:Queue, id_queue:Queue, subject_profession_person_queue:Queue):
     while True:
         if id_queue.empty() or subject_message_queue.full():
             continue
@@ -40,13 +39,18 @@ def get_message_queue(subject_soup_queue:Queue, subject_message_queue:Queue, id_
         if data is None:
             start_id += 1
             continue
-        subject_soup_queue.put(soup)
+
+        target_method = subject_strategy_factory.get_subject_detail_spider_by_category(data['category'])
+        if target_method is None:
+            start_id += 1
+            continue
+
+        dto = target_method(soup, data, subject_profession_person_queue)
         subject_message_queue.put(data)
         start_id += 1
 
 
 def get_subject_soup_id(subject_soup_queue:Queue, start_id):
-
     pass
 
 
@@ -76,14 +80,19 @@ if __name__ == "__main__":
     id_queue = Queue(maxsize=30)
     threading.Thread(target=get_id_queue, args=(id_queue, start_id,)).start()
 
-    subject_soup_queue = Queue(maxsize=30)
+    subject_dto_queue = Queue(maxsize=30)
     subject_message_queue = Queue(maxsize=30)
+    subject_profession_person_queue = Queue(maxsize=30)
 
     for i in range(0, 3):
-        Process(target=get_message_soup_queue,
-                args=(subject_soup_queue, subject_message_queue, id_queue, 4))
+        Process(target=get_dto_soup_queue,
+                args=(subject_dto_queue, subject_message_queue, id_queue, subject_profession_person_queue, 4,)).start()
 
-
+    while True:
+        if subject_message_queue.empty():
+            continue
+        subject_message = subject_message_queue.get()
+        print(subject_message)
 
 
     # subject_data_queue = Queue()
