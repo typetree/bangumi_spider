@@ -1,6 +1,7 @@
 # *_*coding:utf-8 *_*
 # author: hoicai
 
+
 class SubjectDetailRealDTO(object):
     def __init__(self, row=None):
         if row is None:
@@ -34,6 +35,7 @@ class SubjectDetailRealDTO(object):
             self.website = None
             self.imdb_id = None
             self.tv_com_id = None
+            self.extends = None
             self.intro = None
             self.topic_list_id = None
             self.comment_box_id = None
@@ -81,19 +83,20 @@ class SubjectDetailRealDTO(object):
             self.website = row[27]
             self.imdb_id = row[28]
             self.tv_com_id = row[29]
-            self.intro = row[30]
-            self.topic_list_id = row[31]
-            self.comment_box_id = row[32]
-            self.system_score_id = row[33]
-            self.system_tag_id = row[34]
-            self.do = row[35]
-            self.collect = row[36]
-            self.wish = row[37]
-            self.on_hold = row[38]
-            self.dropped = row[39]
-            self.remark = row[40]
-            self.status = row[41]
-            self.creator = row[42]
-            self.create_time = row[43]
-            self.updater = row[44]
-            self.update_time = row[45]
+            self.extends = row[30]
+            self.intro = row[31]
+            self.topic_list_id = row[32]
+            self.comment_box_id = row[33]
+            self.system_score_id = row[34]
+            self.system_tag_id = row[35]
+            self.do = row[36]
+            self.collect = row[37]
+            self.wish = row[38]
+            self.on_hold = row[39]
+            self.dropped = row[40]
+            self.remark = row[41]
+            self.status = row[42]
+            self.creator = row[43]
+            self.create_time = row[44]
+            self.updater = row[45]
+            self.update_time = row[46]

@@ -7,9 +7,11 @@ import traceback
 
 import requests
 from bs4 import BeautifulSoup
+from multiprocessing import Queue
 
 from bangumi.constants import url_constants, table_constants
-from bangumi.dto import subject_info_dto
+from bangumi.dto import subject_info_dto, subject_profession_person_dto
+from bangumi.factory import subject_strategy_factory
 
 
 def get_subject_soup(subject_id):
@@ -58,7 +60,7 @@ def get_category_by_soup(soup):
 def get_type_by_soup(category, soup):
     types = soup.select("#headerSubject > h1 > small")
     if len(types) == 0:
-        return ''
+        return None
     type = types[0].get_text()
     type_list = table_constants.get_types_by_category(category)
     if type in type_list:
@@ -79,7 +81,7 @@ def get_name_by_soup(soup):
 def get_picture_by_soup(soup):
     pictures = soup.select("#bangumiInfo > div > div > a > img")
     if len(pictures) == 0:
-        return ''
+        return None
     picture = pictures[0].get("src")
     return picture
 
@@ -103,19 +105,73 @@ def get_message_by_soup(soup):
     return data
 
 
-def get_dto_by_soup(soup):
-    dto = subject_info_dto.SubjectInfoDTO()
+def get_intro_by_soup(soup):
+    intros = soup.select("#subject_summary")
+    if len(intros) == 0:
+        return None
+    intro = intros[0].get_text()
+    return intro
 
-    soup.select("")
+
+def get_detail_dto_by_category(category, soup, subject_profession_person_queue:Queue, profession_dicts):
+
+    dto = subject_strategy_factory.get_subject_dto_by_category(category)
+
+    infomations = soup.select("#infobox > li")
+
+    for infomation in infomations:
+        temp = infomation.get_text()
+        left_part = temp[:temp.find(":")]
+        right_part = temp[temp.find(":")+1:].strip()
+
+        # 职业信息封装
+        if left_part in profession_dicts:
+            right_person_list = right_part.split("、")
+            persons = infomation.select("a")
+
+            temp_list = []
+            for person in persons:
+                person_href = person.get("href")
+                bangumi_person_id = person_href[person_href.rfind('/')+1:]
+                person_name = person.get_text()
+                temp_list.append(person_name)
+
+                sppd = subject_profession_person_dto.SubjectProfessionPersonDTO()
+                sppd.profession_id = profession_dicts[left_part]
+                sppd.profession_name = left_part
+                sppd.bangumi_person_id = bangumi_person_id
+                sppd.person_name = person_name
+                subject_profession_person_queue.put(sppd)
+                print(sppd.profession_id,sppd.profession_name,sppd.bangumi_person_id,sppd.person_name)
+
+            for right_person in right_person_list:
+                if right_person not in temp_list:
+                    sppd = subject_profession_person_dto.SubjectProfessionPersonDTO()
+                    sppd.category = category
+                    sppd.type = type
+                    sppd.profession_id = profession_dicts[left_part]
+                    sppd.profession_name = left_part
+                    sppd.bangumi_person_id = None
+                    sppd.person_name = right_person
+                    subject_profession_person_queue.put(sppd)
+                    print(right_person)
+
+        else:
+            dto = subject_strategy_factory.set_subject_dto_by_category(category)(left_part, right_part, dto)
+
+    return dto
 
 
 if __name__ == "__main__":
 
     for i in range(1, 10000):
         soup = get_subject_soup(i)
-        get_picture_by_soup(soup)
+        intro = get_intro_by_soup(soup)
+
+        # get_picture_by_soup(soup)
         # data = get_message_by_soup(soup)
         # if data is None:
         #     continue
         # print(data)
+
 
