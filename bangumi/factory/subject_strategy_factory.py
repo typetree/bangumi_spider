@@ -43,4 +43,8 @@ def set_subject_dto_by_category(category):
         return subject_detail_book_spider.set_subject_book_dto
     if category == 'GAME':
         return subject_detail_game_spider.set_subject_game_dto
+    if category == 'MUSIC':
+        return subject_detail_music_spider.set_subject_music_dto
+    if category == 'REAL':
+        return subject_detail_real_spider.set_subject_real_dto
     return None

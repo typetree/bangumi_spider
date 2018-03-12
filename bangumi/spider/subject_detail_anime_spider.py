@@ -52,10 +52,9 @@ def get_anime_dto_by_soup(soup, data, subject_profession_person_queue, professio
 
     picture = subject_info_spider.get_picture_by_soup(soup)
     intro = subject_info_spider.get_intro_by_soup(soup)
-    try:
-        anime_dto = subject_info_spider.get_detail_dto_by_category(category, soup, subject_profession_person_queue, profession_dicts)
-    except Exception:
-        traceback.format_exc()
+
+    anime_dto = subject_info_spider.get_detail_dto_by_category(category, soup, subject_profession_person_queue, profession_dicts)
+
     anime_dto.bangumi_subject_id = bangumi_subject_id
     anime_dto.name = name
     anime_dto.type = type

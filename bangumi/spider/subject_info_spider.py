@@ -118,6 +118,7 @@ def get_detail_dto_by_category(category, soup, subject_profession_person_queue:Q
     dto = subject_strategy_factory.get_subject_dto_by_category(category)
 
     infomations = soup.select("#infobox > li")
+    type = get_type_by_soup(category, soup)
 
     for infomation in infomations:
         temp = infomation.get_text()
@@ -142,7 +143,7 @@ def get_detail_dto_by_category(category, soup, subject_profession_person_queue:Q
                 sppd.bangumi_person_id = bangumi_person_id
                 sppd.person_name = person_name
                 subject_profession_person_queue.put(sppd)
-                print(sppd.profession_id,sppd.profession_name,sppd.bangumi_person_id,sppd.person_name)
+                # print(sppd.profession_id,sppd.profession_name,sppd.bangumi_person_id,sppd.person_name)
 
             for right_person in right_person_list:
                 if right_person not in temp_list:
@@ -154,7 +155,7 @@ def get_detail_dto_by_category(category, soup, subject_profession_person_queue:Q
                     sppd.bangumi_person_id = None
                     sppd.person_name = right_person
                     subject_profession_person_queue.put(sppd)
-                    print(right_person)
+                    # print(right_person)
 
         else:
             dto = subject_strategy_factory.set_subject_dto_by_category(category)(left_part, right_part, dto)

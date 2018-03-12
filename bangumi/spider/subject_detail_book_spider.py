@@ -36,10 +36,8 @@ def get_book_dto_by_soup(soup, data, subject_profession_person_queue, profession
     picture = subject_info_spider.get_picture_by_soup(soup)
     intro = subject_info_spider.get_intro_by_soup(soup)
 
-    try:
-        book_dto = subject_info_spider.get_detail_dto_by_category(category, soup, subject_profession_person_queue, profession_dicts)
-    except Exception:
-        traceback.format_exc()
+
+    book_dto = subject_info_spider.get_detail_dto_by_category(category, soup, subject_profession_person_queue, profession_dicts)
 
     book_dto.bangumi_subject_id = bangumi_subject_id
     book_dto.name = name
